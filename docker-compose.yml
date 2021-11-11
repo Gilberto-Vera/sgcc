@@ -1,0 +1,41 @@
+version: '3'
+services:
+  web:
+    build: .
+    volumes:
+      - .:/var/www/html
+    ports:
+      - '8080:80'
+    command: /usr/sbin/apache2ctl -D FOREGROUND
+    networks:
+      - postgres-compose-network
+
+  postgres:
+    image: postgres:12.2
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=tcc
+    ports:
+      - '65432:5432'
+    networks:
+      - postgres-compose-network
+    volumes:
+      # - ./postgres/data:/var/lib/postgresql/data
+      - ./extras/db.sql:/docker-entrypoint-initdb.d/db.sql
+
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "teste@teste.com"
+      PGADMIN_DEFAULT_PASSWORD: "teste"
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres
+    networks:
+      - postgres-compose-network
+
+networks:
+  postgres-compose-network:
+    driver: bridge
