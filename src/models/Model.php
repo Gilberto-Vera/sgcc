@@ -26,6 +26,12 @@ Class Model{
         $this->values[$key] = $value;
     }
 
+    public function getOne($filters = [], $columns = '*'){
+        $class = get_called_class();
+        $result = static::getResultGetFromSelect($filters, $columns);
+        return $result ? new $class(pg_fetch_assoc($result)) : null;
+    }
+
     public function get($filters = [], $columns = '*'){
         $objects = [];
         $result = static::getResultGetFromSelect($filters, $columns);
