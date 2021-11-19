@@ -6,8 +6,8 @@ Class Login extends Model{
 
     public function validation(){
         $errors = [];
-        if(!$this->nome){
-            $errors['nome'] = 'Informe o nome do usuário...';
+        if(!$this->email){
+            $errors['email'] = 'Informe seu email...';
         }
         if(!$this->senha){
             $errors['senha'] = 'Informe a senha...';
@@ -19,16 +19,16 @@ Class Login extends Model{
 
     public function checkLogin(){
         $this->validation();
-        $user = People::getOne(['nome' => $this->nome]);
+        $user = People::getOne(['email' => $this->email]);
         if($user){
-            if(!$user->ativo){
-                throw new AppException('Usuário inativo...');
-            }
             if($this->senha == $user->senha){
+                if($user->ativo == 'f'){
+                    throw new AppException('Usuário inativo...');
+                }
                 return $user;
             }
         }
-        throw new AppException('Usuário e senha inválidos...');
+        throw new AppException('Email e senha inválidos...');
     }
 
 }

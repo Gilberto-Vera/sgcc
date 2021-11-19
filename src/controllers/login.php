@@ -5,7 +5,8 @@ if(count($_POST) > 0){
     $login = new Login($_POST);
     try {
         $user = $login->checkLogin();
-        echo "{$user->nome} logado com sucesso...";
+        header("Location: dash_board.php");
+        die();
     } catch (AppException $e) {
         $exception = $e;
     }

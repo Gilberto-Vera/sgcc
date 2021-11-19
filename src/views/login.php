@@ -26,10 +26,10 @@
                                 <form class="user needs-validation" action="#" method="POST">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-user 
-                                            <?= $errors['nome'] ? 'is-invalid' : '' ?>"
-                                            name="nome" placeholder="Usuário" value="<?= $nome ?>">
+                                            <?= $errors['email'] ? 'is-invalid' : '' ?>"
+                                            name="email" placeholder="Email" value="<?= $email ?>">
                                         <div class="text-left invalid-feedback">
-                                            <?= $errors['nome'] ?>
+                                            <?= $errors['email'] ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -51,5 +51,5 @@
             </div>
         </div>
     </body>
-    
+
 </html>
