@@ -1,7 +1,5 @@
 <?php
 
-loadModel('People');
-
 Class Login extends Model{
 
     public function validation(){

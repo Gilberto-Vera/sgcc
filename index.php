@@ -6,7 +6,7 @@ $uri = urldecode(
 );
 
 if($uri === '/' || $uri === '' || $uri === '/index.php'){
-    $uri = 'login.php';
+    $uri = 'dash_board.php';
 }
 
 require_once(CONTROLLER_PATH . "/{$uri}");

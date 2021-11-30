@@ -17,8 +17,19 @@ class Database {
 
     public static function getResultFromQuery($sql){
         $conn = self::getConnection();
-        $result = pg_query($sql);
+        $result = pg_query($conn, $sql);
         pg_close($conn);
         return $result;
+    }
+
+    public static function executeSQL($sql){
+        $conn = self::getConnection();
+        $id = pg_query($conn, $sql);
+        if(pg_last_error($conn)) {
+            throw new Exception(pg_last_error($conn));
+        }
+        $row = pg_fetch_row($id);
+        pg_close($conn);
+        return $row;
     }
 }
