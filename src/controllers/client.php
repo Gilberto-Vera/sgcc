@@ -2,6 +2,16 @@
 session_start();
 requireValidSession();
 
+$exception = null;
+if(isset($_GET['delete'])) {
+    try {
+        Client::deleteById($_GET['delete']);
+        addSuccessMsg('Usuário excluido com sucesso...');
+    } catch (Exception $e) {
+        $exception = $e;
+    }
+}
+
 $clients = Client::getClients([]);
 
-loadTemplateView('clients', ['clients' => $clients]);
+loadTemplateView('clients', ['clients' => $clients, 'exception' => $exception]);

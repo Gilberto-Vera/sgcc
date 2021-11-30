@@ -71,6 +71,11 @@ Class Model{
         Database::executeSQL($sql);
     }
 
+    public static function deleteById($id) {
+        $sql = "UPDATE pessoa SET ativo = FALSE WHERE id = {$id}";
+        Database::executeSQL($sql);
+    }
+
     private static function getFilters($filters){
         $sql = '';
         if(count($filters) > 0){
