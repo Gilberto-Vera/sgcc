@@ -1,23 +1,28 @@
 <?php
 
-loadModel('People');
-
 Class Client extends People{
 
     protected static $tablename = 'cliente';
     protected static $columns = [
         'id',
-        'nome',
+        'name',
         'cpf',
-        'telefone',
-        'endereco',
+        'phone',
+        'address',
         'email',
-        'senha',
+        'password',
     ];
     
     public function insert() {
         $this->validateClient();
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
         return parent::insert();
+    }
+    
+    public function update() {
+        $this->validateClient();
+        $this->password = password_hash($this->password, PASSWORD_DEFAULT);
+        return parent::update();
     }
 
     private function validateClient(){
@@ -47,9 +52,10 @@ Class Client extends People{
             $errors['email'] = 'Insira um email...';
         }elseif(!validateEmail($this->email)){
             $errors['email'] = 'Email inválido...';
-        }elseif(!parent::verifyEmail($this->email)){
-            $errors['email'] = 'Email já cadastrado...';
         }
+        // elseif(!parent::verifyEmail($this->email)){
+        //     $errors['email'] = 'Email já cadastrado...';
+        // }
 
         if(!$this->password) {
             $errors['password'] = 'Insira uma senha...';

@@ -5,10 +5,9 @@ Class People extends Model{
     protected static $tablename = 'pessoa';
     protected static $columns = [
         'id',
-        'nome',
+        'name',
         'email',
-        'senha',
-        'ativo',
+        'password',
     ];
 
     public function verifyEmail(){

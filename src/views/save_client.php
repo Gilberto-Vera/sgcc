@@ -9,10 +9,11 @@
                         <div class="table-responsive">
                             <div class="mx-3 my-2">
                                 <div class="mb-0 card-title text-center">
-                                    <h1 class="h4 text-gray-900 p-1">Cadastrar cliente</h1>
+                                    <h1 class="h4 text-gray-900 p-1">Gerenciar cliente</h1>
                                 </div>
                                 <?php include(TEMPLATE_PATH . '/messages.php') ?>
                                 <form class="user needs-validation" action="#" method="POST">
+                                    <input type="hidden" name="id" value="<?= $id ?>">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-user
                                             <?= $errors['name'] ? 'is-invalid' : '' ?>" id="name"
@@ -74,11 +75,12 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col">
-                                            <button class="btn btn-secondary btn-user" type="button" id="clear_client">Limpar</button>
+                                        <div class="col text-center">
+                                            <a href="client.php" class="btn btn-primary btn-user">Voltar</a>
+                                            <!-- <button class="btn btn-secondary btn-user" type="button" id="clear_client">Voltar</button> -->
                                         </div>
-                                        <div class="col text-right">
-                                            <button class="btn btn-primary btn-user" type="submit" id="save_add_client">Salvar</button>
+                                        <div class="col text-center">
+                                            <button class="btn btn-primary btn-user" type="submit">Salvar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -88,17 +90,3 @@
                 </div>  
             </div>
         </div>
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        $("#clear_client").click(function(){
-            const fields = ['name', 'cpf', 'phone', 'address', 'email', 'password', 'confirmPassword'];
-            fields.forEach(function(element){
-                    $("#" + element).removeClass('is-invalid');
-                    $("#" + element).removeClass('is-valid');
-                    $("#" + element).val('');
-                    $("#feedback_" + element).html('');
-            });
-        });
-    });
-</script>

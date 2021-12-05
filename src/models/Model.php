@@ -6,14 +6,19 @@ Class Model{
     protected static $columns = [];
     protected $values = [];
 
-    function __construct($arr){
-        $this->loadFromArray($arr);
+    function __construct($arr, $sanitize = true){
+        $this->loadFromArray($arr, $sanitize);
     }
 
-    public function loadFromArray($arr){
+    public function loadFromArray($arr, $sanitize = true){
         if($arr){
             foreach ($arr as $key => $value){
-                $this->$key = $value;
+                $cleanValue = $value;
+                if($sanitize && isset($cleanValue)){
+                    $cleanValue = strip_tags(trim($cleanValue));
+                    $cleanValue = htmlentities($cleanValue, ENT_NOQUOTES);
+                }
+                $this->$key = $cleanValue;
             }
         }
     }
@@ -24,6 +29,10 @@ Class Model{
 
     public function __set($key, $value){
         $this->values[$key] = $value;
+    }
+
+    public function getValues(){
+        return $this->values;
     }
 
     public function getOne($filters = [], $columns = '*'){
@@ -76,6 +85,20 @@ Class Model{
         Database::executeSQL($sql);
     }
 
+    public function update(){
+        $sql = "UPDATE pessoa SET nome = '{$this->name}', senha = '{$this->password}'
+            WHERE id = {$this->id}";
+        Database::executeSQL($sql);
+
+        $sql = "UPDATE cliente SET endereco = '{$this->address}', cpf = '{$this->cpf}'
+            WHERE pessoa_id = {$this->id}";
+        Database::executeSQL($sql);
+
+        $sql = "UPDATE telefone_pessoa SET telefone = '{$this->phone}'
+            WHERE pessoa_id = {$this->id}";
+        Database::executeSQL($sql);
+    }
+
     private static function getFilters($filters){
         $sql = '';
         if(count($filters) > 0){
@@ -111,4 +134,16 @@ Class Model{
         }
         return $objects;
     }
+
+    public function getClient($id){
+        $objects = [];
+        $sql = "SELECT pessoa.id, nome AS name, cpf, telefone AS phone, endereco AS address, email FROM pessoa
+        INNER JOIN telefone_pessoa ON telefone_pessoa.pessoa_id = pessoa.id
+        INNER JOIN cliente ON cliente.pessoa_id = pessoa.id
+        WHERE pessoa.id = {$id}";
+        $class = get_called_class();
+        $result = Database::getResultFromQuery($sql);
+        return $result ? new $class(pg_fetch_assoc($result)) : null;
+    }
+
 }
