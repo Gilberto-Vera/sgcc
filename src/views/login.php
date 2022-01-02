@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/signin.css">
         <link rel="stylesheet" href="css/sb-admin-2.min.css" >
+        <link rel="stylesheet" href="css/template.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     </head>
 
@@ -25,7 +26,7 @@
                                 <?php include(TEMPLATE_PATH . '/messages.php') ?>
                                 <form class="user needs-validation" action="#" method="POST">
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-user 
+                                        <input type="text" class="form-control rounded-pill
                                             <?= $errors['email'] ? 'is-invalid' : '' ?>"
                                             name="email" placeholder="Email" value="<?= $email ?>">
                                         <div class="text-left invalid-feedback">
@@ -33,7 +34,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user 
+                                        <input type="password" class="form-control rounded-pill
                                             <?= $errors['senha'] ? 'is-invalid' : '' ?>"
                                             name="senha" placeholder="Senha">
                                         <div class="text-left invalid-feedback">

@@ -5,7 +5,7 @@ requireValidSession();
 $exception = null;
 if(isset($_GET['delete'])) {
     try {
-        Client::deleteById($_GET['delete']);
+        Client::deleteClientById($_GET['delete']);
         addSuccessMsg('Usuário excluido com sucesso...');
     } catch (Exception $e) {
         $exception = $e;

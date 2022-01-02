@@ -3,3 +3,8 @@ a.nav-link.avatar {
     border-radius: 50%;
     margin: 0px 10px;
 }
+
+.rounded-pill {
+    height: 55px;
+    padding-left: 20px;
+}

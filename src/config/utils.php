@@ -41,7 +41,8 @@ function validateCNPJ($cnpj){
         $j = ($j == 2) ? 9 : $j - 1;
     }
     $resto = $soma % 11;
-    return $cnpj[13] == ($resto < 2 ? 0 : 11 - $resto);
+    return $cnpj;
+    // return $cnpj[13] == ($resto < 2 ? 0 : 11 - $resto);
 }
 
 function validateCPF($cpf) {
@@ -64,7 +65,7 @@ function validateCPF($cpf) {
             return false;
         }
     }
-    return true;
+    return $cpf;
 }
 
 function validateEmail($email){
@@ -78,14 +79,16 @@ function validateName($name){
     if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
         return false;
     }
-    return true;
+    $name = validate($name);
+    return $name;
 }
 
 function validatePassword($password){
     if (strlen($password) < 6) {
         return false;
     }
-    return true;
+    $password = validate($password);
+    return $password;
 }
 
 /**
@@ -96,7 +99,7 @@ function validatePassword($password){
  * @param bool $forceOnlyNumber Passar false caso não queira remover o traço "-"
  * @return array|null ['ddi' => 'string', 'ddd' => string , 'number' => 'string']
  */
-function brazilianPhoneParser(string $phoneString, bool $forceOnlyNumber = true) : ?array{
+function validatePhone(string $phoneString, bool $forceOnlyNumber = true) : ? array {
     $phoneString = validate($phoneString);
 
     $phoneString = preg_replace('/[()]/', '', $phoneString);

@@ -20,7 +20,7 @@
                     </a>
                     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="save_client.php">Cadastro</a>
+                            <a class="collapse-item" href="manage_client.php">Cadastro</a>
                             <a class="collapse-item" href="client.php">Lista</a>
                         </div>
                     </div>
@@ -49,8 +49,8 @@
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="#">Cadastro</a>
-                            <a class="collapse-item" href="#">Lista</a>
+                            <a class="collapse-item" href="manage_provider.php">Cadastro</a>
+                            <a class="collapse-item" href="provider.php">Lista</a>
                         </div>
                     </div>
                 </li>

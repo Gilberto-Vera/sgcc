@@ -109,8 +109,9 @@ CREATE TABLE IF NOT EXISTS "fornecedor" (
   "razao_social" VARCHAR(100) NULL,
   "nome_fantasia" VARCHAR(45) NOT NULL,
   "endereco" VARCHAR(100) NOT NULL,
-  "Contato" VARCHAR(45) NOT NULL,
-  "email" VARCHAR(45) NOT NULL,
+  "contato" VARCHAR(45) NOT NULL,
+  "email" VARCHAR(100) NOT NULL,
+  "ativo" BOOLEAN NOT NULL,
   PRIMARY KEY ("id"))
 ;
 
@@ -433,7 +434,7 @@ BEGIN
     -- -----------------------------------------------------
     -- Insert "situacao"
     -- -----------------------------------------------------
-    INSERT INTO situacao (id, evento_id, nome, Observacao)
+    INSERT INTO situacao (id, evento_id, nome, observacao)
       VALUES (default, 1, 'Iniciado', ''),
         (default, 1, 'Confirmado', ''),
         (default, 1, 'Finalizado', ''),
@@ -441,6 +442,82 @@ BEGIN
         (default, 1, 'Cancelado', '')
     ;
   END IF;
+
+  IF (SELECT COUNT(*) FROM servico) = 0 THEN
+    -- -----------------------------------------------------
+    -- Insert "serviço"
+    -- -----------------------------------------------------
+    INSERT INTO servico (id, servico)
+      VALUES (default, 'Cerimonial'),
+        (default, 'Buffet'),
+        (default, 'Decoração'),
+        (default, 'Doces e Salgados'),
+        (default, 'Dj'),
+        (default, 'Recepção'),
+        (default, 'Cerimonia')
+    ;
+  END IF;
+
+  IF (SELECT COUNT(*) FROM fornecedor) = 0 THEN
+    -- -----------------------------------------------------
+    -- Insert "fornecedor"
+    -- -----------------------------------------------------
+    INSERT INTO fornecedor (id, cnpj, razao_social, nome_fantasia, endereco, contato, email, ativo)
+      VALUES (default, 11026065000122, 'Emanuelly e Hugo Marketing ME', 'EH Marketing', 'Rua Cristóvão Benitez 188 Jardim Nélia', 'Emanuelly e Hugo', 'rh@emanuellyehugomarketingme.com.br', TRUE),
+        (default, 52108308000159, 'Manuel e Manoel Pizzaria Delivery Ltda', 'MM Pizzaria Delivery', 'Rua Soldado Sebastião Garcia 469 Parque Novo Mundo', 'Manuel e Manoel', 'manutencao@manuelemanoelpizzariadeliveryltda.com.br', TRUE),
+        (default, 18717781000103, 'Victor e Ana Restaurante ME', 'VA Restaurante', 'Rua João Prezotto 387 Jardim Alto Alegre', 'Victor e Ana', 'fiscal@victoreanarestauranteme.com.br', TRUE),
+        (default, 13519057000143, 'Melissa e Natália Telas ME', 'MN Telas', 'Rua José Boscoli 144 Chácara Flórida', 'Melissa e Natália', 'fiscal@melissaenataliatelasme.com.br', TRUE),
+        (default, 81442670000160, 'Fátima e Daiane Financeira Ltda', 'FD Financeira', 'Rua Dona Maria Ometto Franceschi 130 Jardim Diamante', 'Fátima e Daiane', 'sac@fatimaedaianefinanceiraltda.com.br', TRUE),
+        (default, 14263478000119, 'Stella e Benício Doces & Salgados Ltda', 'SB Doces e Salgados', 'Avenida Getúlio Dorneles Vargas 3450 979 Jardim Primavera', 'Stella e Benício', 'presidencia@stellaebeniciodocessalgadosltda.com.br', TRUE),
+        (default, 19262991000109, 'Aurora e Evelyn Doces & Salgados Ltda', 'AE Doces e Salgados', 'Rua Curitiba 911 Jardim Nova Cândida', 'Aurora e Evelyn', 'posvenda@auroraeevelyndocessalgadosltda.com.br', TRUE),
+        (default, 59702255000149, 'Carolina e Giovanna Consultoria Financeira ME', 'CG Consultaria Financeira', 'Avenida Nordestina 753 Vila Americana', 'Carolina e Giovanna', 'vendas@carolinaegiovannaconsultoriafinanceirame.com.br', TRUE),
+        (default, 10537274000178, 'Laura e Bryan Adega Ltda', 'LB Adega', 'Rua Adriano Maciel de Queiróz 367 Jardim Tatiana', 'Laura e Bryan', 'cobranca@lauraebryanadegaltda.com.br', TRUE),
+        (default, 20660706000197, 'Ian e Mariane Pizzaria Delivery ME', 'IM Pizzaria Delivery', 'Via de Acesso 2 600 Condomínio Residencial Village São Carlos ll', 'Ian e Mariane', 'posvenda@ianemarianepizzariadeliveryme.com.br', TRUE),
+        (default, 41109302000180, 'Ruan e Lúcia Pizzaria Delivery ME', 'RL Pizzaria Delivery', 'Rua Parintins 709 Vila Floresta', 'Ruan e Lúcia', 'almoxarifado@ruaneluciapizzariadeliveryme.com.br', TRUE)
+    ;
+  END IF;
+
+  IF (SELECT COUNT(*) FROM servico_fornecedor) = 0 THEN
+    -- -----------------------------------------------------
+    -- Insert "serviço"
+    -- -----------------------------------------------------
+    INSERT INTO servico_fornecedor (id, fornecedor_id, servico_id, principal)
+      VALUES (default, 1, 1, TRUE),
+        (default, 2, 2, TRUE),
+        (default, 3, 3, TRUE),
+        (default, 4, 4, TRUE),
+        (default, 5, 5, TRUE),
+        (default, 6, 6, TRUE),
+        (default, 7, 7, TRUE),
+        (default, 8, 1, TRUE),
+        (default, 9, 2, TRUE),
+        (default, 10, 3, TRUE),
+        (default, 11, 4, TRUE),
+        (default, 1, 6, FALSE),
+        (default, 3, 7, FALSE),
+        (default, 7, 1, FALSE)
+    ;
+  END IF;
+
+  IF (SELECT COUNT(*) FROM telefone_fornecedor) = 0 THEN
+    -- -----------------------------------------------------
+    -- Inserir "telefone_fornecedor"
+    -- -----------------------------------------------------
+    INSERT INTO telefone_fornecedor (id, fornecedor_id, descricao, telefone, principal)
+      VALUES (default, 1, 'Celular', 982895122, TRUE),
+        (default, 2, 'Celular', 997696742, TRUE),
+        (default, 3, 'Celular', 987683091, TRUE),
+        (default, 4, 'Celular', 984737732, TRUE),
+        (default, 5, 'Celular', 997871604, TRUE),
+        (default, 6, 'Celular', 995524086, TRUE),
+        (default, 7, 'Celular', 988397445, TRUE),
+        (default, 8, 'Celular', 991495728, TRUE),
+        (default, 9, 'Celular', 996637728, TRUE),
+        (default, 10, 'Celular', 996320668, TRUE),
+        (default, 11, 'Celular', 997532366, TRUE)
+    ;
+  END IF;  
+
 END
 $$ LANGUAGE plpgsql;
 

@@ -26,7 +26,7 @@ Class Login extends Model{
                 return $user;
             }
         }
-        throw new AppException('Email e senha inválidos...');
+        throw new AppException('Credenciais inválidas...');
     }
 
 }

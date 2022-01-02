@@ -1,9 +1,17 @@
 <?php
 
-$user = new Client(['id' => 1, 'nome' => 'gilberto', 'cpf' => 29108908800, 'telefone' => 999743570,
-    'endereco' => 'Rua Onix Qd01 N37', 'email' => 'rasvejr@gmail.com', 'senha' => 123]);
+// $services = Provider::getServices();
 
-echo $user->insert();
+$test = validateCNPJ('91.550.358/0001-11');
+
+if(!$test){
+    echo('dentro do if...');
+    echo ('<br>');
+}else{
+    echo ('fora do if...');
+    echo ('<br>');
+}
+print_r ($test);
 
 echo ('<br>');
 echo ('Fim!');

@@ -10,13 +10,10 @@ Class People extends Model{
         'password',
     ];
 
-    public function verifyEmail(){
-        $sql = "SELECT * FROM pessoa WHERE email='{$this->email}'";
-        $result = Database::executeSQL($sql);
-        if($result[2] === $this->email){
-            return false;
-        }else{
-            return true;
-        }
+    public function verifyEmail($email){
+        $sql = "SELECT email FROM pessoa
+            WHERE email = '{$email}'";
+        $result = Database::getResultFromQuery($sql);
+        return $result ? pg_fetch_assoc($result) : null;
     }
 }

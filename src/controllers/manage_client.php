@@ -4,8 +4,10 @@ requireValidSession();
 
 $exception = null;
 $userData = [];
+$disabledInput = false;
 
 if(count($_POST) === 0 && isset($_GET['update'])){
+    $disabledInput = true;
     $user = Client::getClient($_GET['update']);
     $userData = $user->getValues();
 }elseif(count($_POST) > 0){
@@ -22,10 +24,20 @@ if(count($_POST) === 0 && isset($_GET['update'])){
         }
         $_POST = [];
     } catch (Exception $e) {
+        if(isset($_GET['update'])){
+            $user = Client::getClient($_GET['update']);
+            $userData = $user->getValues();
+            $_POST['cpf'] = $userData['cpf'];
+            $_POST['email'] = $userData['email'];
+            $disabledInput = true;
+        }
         $exception = $e;
     } finally {
         $userData = $_POST;
     }
 }
 
-loadTemplateView('save_client', $userData + ['exception' => $exception]);
+loadTemplateView('manage_client', $userData + [
+    'exception' => $exception,
+    'disabledInput' => $disabledInput,
+]);

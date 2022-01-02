@@ -3,37 +3,41 @@
         <div class="container-fluid">
             <div class="card shadow mt-4 mb-4">
                 <div class="card-header">
-                    <h4 class="mb-0 ml-2 font-weight-bold text-primary">Cliente</h4>
+                    <h4 class="mb-0 ml-2 font-weight-bold text-primary">Fornecedor</h4>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="mb-0 card-title text-center">
-                            <h1 class="h4 text-gray-900 my-2">Listar cliente</h1>
+                            <h1 class="h4 text-gray-900 my-2">Lista de Fornecedores</h1>
                         </div>
                         <?php include(TEMPLATE_PATH . '/messages.php') ?>
                         <table class="table table-bordered table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr class="text-center">
                                     <th>Nome</th>
+                                    <th>Contato</th>
                                     <th>Telefone</th>
                                     <th>Email</th>
+                                    <th>Serviço</th>
                                     <th>Editar</th>
                                     <th>Remover</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($clients as $client) { ?>
+                                <?php foreach($providers as $provider) { ?>
                                     <tr>
-                                        <td><?= $client->nome ?></td>
-                                        <td><?= $client->telefone ?></td>
-                                        <td><?= $client->email ?></td>
+                                        <td><?= $provider->business_name ?></td>
+                                        <td><?= $provider->contact ?></td>
+                                        <td><?= $provider->phone ?></td>
+                                        <td><?= $provider->email ?></td>
+                                        <td><?= $provider->service ?></td>
                                         <td class="text-center">
-                                            <a class="btn btn-warning btn-sm rounded-circle" href="manage_client.php?update=<?= $client->id ?>">
+                                            <a class="btn btn-warning btn-sm rounded-circle" href="manage_provider.php?update=<?= $provider->id ?>">
                                             <i class="fas fa-fw fa-edit"></i></a>
                                         </td>
                                         <td class="text-center">
                                             <a class="btn btn-danger btn-sm rounded-circle" href="#" data-toggle="modal" 
-                                                data-target="#modal_del" data-id="<?= $client->id ?>">
+                                                data-target="#modal_del" data-id="<?= $provider->id ?>">
                                             <i class="fas fa-fw fa-eraser"></i></a>
                                         </td>
                                     </tr>						
@@ -46,13 +50,13 @@
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Remover cliente</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Remover fornecedor</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true"><</span>
                                         </button>
                                 </div>
                                 <div class="modal-body">
-                                    Tem certeza de deseja remover este cliente?
+                                    Tem certeza de deseja remover este fornecedor?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal" 
@@ -66,4 +70,3 @@
             </div>  
         </div>
     </div>
-
