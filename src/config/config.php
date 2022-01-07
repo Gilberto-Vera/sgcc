@@ -16,5 +16,6 @@ require_once(realpath(MODEL_PATH . '/Model.php'));
 require_once(realpath(MODEL_PATH . '/People.php'));
 require_once(realpath(MODEL_PATH . '/Client.php'));
 require_once(realpath(MODEL_PATH . '/Provider.php'));
+require_once(realpath(MODEL_PATH . '/User.php'));
 require_once(realpath(EXCEPTION_PATH . '/AppException.php'));
 require_once(realpath(EXCEPTION_PATH . '/ValidationException.php'));

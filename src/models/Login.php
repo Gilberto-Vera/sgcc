@@ -11,7 +11,7 @@ Class Login extends Model{
             $errors['senha'] = 'Informe a senha...';
         }
         if(count($errors) > 0){
-            throw new ValidationException($errors);            
+            throw new ValidationException($errors);
         }
     }
 

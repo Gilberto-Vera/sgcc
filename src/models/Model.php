@@ -64,6 +64,54 @@ Class Model{
             return $result;
         }
     }
+
+    private static function getFilters($filters){
+        $sql = '';
+        if(count($filters) > 0){
+            $sql .= ' WHERE 1 = 1 ';
+            foreach ($filters as $column => $value) {
+                $sql .=" AND {$column}  = " . static::getFormatedValue($value);
+            }
+        }
+        return $sql;
+    }
+
+    private static function getFormatedValue($value){
+        if(is_null($value)){
+            return 'null';
+        }elseif (gettype($value) === 'string') {
+            return "'{$value}'";
+        }else {
+            return $value;
+        }
+    }
+
+    public function getClient($id){
+        $objects = [];
+        $sql = "SELECT pessoa.id, nome AS name, cpf, telefone AS phone, endereco AS address, email FROM pessoa
+        INNER JOIN telefone_pessoa ON telefone_pessoa.pessoa_id = pessoa.id
+        INNER JOIN cliente ON cliente.pessoa_id = pessoa.id
+        WHERE pessoa.id = {$id}";
+        $class = get_called_class();
+        $result = Database::getResultFromQuery($sql);
+        return $result ? new $class(pg_fetch_assoc($result)) : null;
+    }
+
+    public static function getClients(){
+        $objects = [];
+        $sql = "SELECT pessoa.id, nome, telefone, email FROM pessoa
+            INNER JOIN telefone_pessoa ON telefone_pessoa.pessoa_id = pessoa.id
+            INNER JOIN cliente ON cliente.pessoa_id = pessoa.id
+            WHERE pessoa.ativo = TRUE";
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            while ($row = pg_fetch_assoc($result)) {
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
+    }
     
     public function insertClient(){
         $sql = "INSERT INTO pessoa (id, nome, email, senha, ativo) VALUES (
@@ -94,74 +142,9 @@ Class Model{
         Database::executeSQL($sql);
     }
     
-        public static function deleteClientById($id) {
-            $sql = "UPDATE pessoa SET ativo = FALSE WHERE id = {$id}";
-            Database::executeSQL($sql);
-        }
-
-    private static function getFilters($filters){
-        $sql = '';
-        if(count($filters) > 0){
-            $sql .= ' WHERE 1 = 1 ';
-            foreach ($filters as $column => $value) {
-                $sql .=" AND {$column}  = " . static::getFormatedValue($value);
-            }
-        }
-        return $sql;
-    }
-
-    private static function getFormatedValue($value){
-        if(is_null($value)){
-            return 'null';
-        }elseif (gettype($value) === 'string') {
-            return "'{$value}'";
-        }else {
-            return $value;
-        }
-    }
-
-    public static function getClients(){
-        $objects = [];
-        $sql = "SELECT pessoa.id, nome, telefone, email FROM pessoa
-        INNER JOIN telefone_pessoa ON pessoa_id = pessoa.id
-        WHERE pessoa.ativo = TRUE";
-        $result = Database::getResultFromQuery($sql);
-        if($result){
-            $class = get_called_class();
-            while ($row = pg_fetch_assoc($result)) {
-                array_push($objects, new $class($row));
-            }
-        }
-        return $objects;
-    }
-
-    public function getClient($id){
-        $objects = [];
-        $sql = "SELECT pessoa.id, nome AS name, cpf, telefone AS phone, endereco AS address, email FROM pessoa
-        INNER JOIN telefone_pessoa ON telefone_pessoa.pessoa_id = pessoa.id
-        INNER JOIN cliente ON cliente.pessoa_id = pessoa.id
-        WHERE pessoa.id = {$id}";
-        $class = get_called_class();
-        $result = Database::getResultFromQuery($sql);
-        return $result ? new $class(pg_fetch_assoc($result)) : null;
-    }
-
-    public static function getProviders(){
-        $objects = [];
-        $sql = "SELECT fornecedor.id, cnpj, razao_social AS corporate_name, nome_fantasia AS business_name,
-            endereco AS address, contato AS contact, email, servico AS service, telefone AS phone  FROM fornecedor
-        INNER JOIN telefone_fornecedor ON telefone_fornecedor.fornecedor_id = fornecedor.id
-        INNER JOIN servico_fornecedor ON servico_fornecedor.fornecedor_id = fornecedor.id
-        INNER JOIN servico ON servico.id = servico_fornecedor.servico_id
-        WHERE fornecedor.ativo = TRUE";
-        $result = Database::getResultFromQuery($sql);
-        if($result){
-            $class = get_called_class();
-            while ($row = pg_fetch_assoc($result)) {
-                array_push($objects, new $class($row));
-            }
-        }
-        return $objects;
+    public static function deleteClientById($id) {
+        $sql = "UPDATE pessoa SET ativo = FALSE WHERE id = {$id}";
+        Database::executeSQL($sql);
     }
 
     public function getProvider($id){
@@ -177,6 +160,24 @@ Class Model{
         $class = get_called_class();
         $result = Database::getResultFromQuery($sql);
         return $result ? new $class(pg_fetch_assoc($result)) : null;
+    }
+
+    public static function getProviders(){
+        $objects = [];
+        $sql = "SELECT fornecedor.id, cnpj, razao_social AS corporate_name, nome_fantasia AS business_name,
+            endereco AS address, contato AS contact, email, servico AS service, telefone AS phone  FROM fornecedor
+            INNER JOIN telefone_fornecedor ON telefone_fornecedor.fornecedor_id = fornecedor.id
+            INNER JOIN servico_fornecedor ON servico_fornecedor.fornecedor_id = fornecedor.id
+            INNER JOIN servico ON servico.id = servico_fornecedor.servico_id
+            WHERE fornecedor.ativo = TRUE AND servico_fornecedor.principal = TRUE";
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            while ($row = pg_fetch_assoc($result)) {
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
     }
     
     public function insertProvider(){
@@ -211,6 +212,11 @@ Class Model{
         Database::executeSQL($sql);
     }
 
+    public static function deleteProviderById($id) {
+        $sql = "UPDATE fornecedor SET ativo = FALSE WHERE id = {$id}";
+        Database::executeSQL($sql);
+    }
+
     public function getServices(){
         $objects = [];
         $sql = "SELECT * FROM servico";
@@ -224,8 +230,77 @@ Class Model{
         return $objects;
     }
 
-    public static function deleteProviderById($id) {
-        $sql = "UPDATE fornecedor SET ativo = FALSE WHERE id = {$id}";
+    public function getRoles(){
+        $objects = [];
+        $sql = "SELECT * FROM funcao";
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            while($row = pg_fetch_assoc($result)){
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
+    }
+
+    public function getUser($id){
+        $objects = [];
+        $sql = "SELECT pessoa.id, nome AS name, email, telefone AS phone, funcao_id AS role FROM pessoa
+        INNER JOIN telefone_pessoa ON telefone_pessoa.pessoa_id = pessoa.id
+        INNER JOIN usuario ON usuario.pessoa_id = pessoa.id
+        WHERE pessoa.id = {$id}";
+        $class = get_called_class();
+        $result = Database::getResultFromQuery($sql);
+        return $result ? new $class(pg_fetch_assoc($result)) : null;
+    }
+
+    public static function getUsers(){
+        $objects = [];
+        $sql = "SELECT pessoa.id, nome, telefone, email FROM pessoa
+        INNER JOIN telefone_pessoa ON telefone_pessoa.pessoa_id = pessoa.id
+        INNER JOIN usuario ON usuario.pessoa_id = pessoa.id
+        WHERE pessoa.ativo = TRUE";
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            while ($row = pg_fetch_assoc($result)) {
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
+    }
+    
+    public function insertUser(){
+        $sql = "INSERT INTO pessoa (id, nome, email, senha, ativo)
+            VALUES (default, '{$this->name}', '{$this->email}', '{$this->password}', TRUE) RETURNING id";
+        $id = Database::executeSQL($sql);
+        $this->id = $id[0];
+        
+        $sql = "INSERT INTO usuario (id, pessoa_id, funcao_id)
+            VALUES (default, {$this->id}, {$this->role})";
+        Database::executeSQL($sql);
+        
+        $sql = "INSERT INTO telefone_pessoa (id, pessoa_id, telefone, principal, descricao)
+            VALUES (default, {$this->id}, {$this->phone}, TRUE, 'celular')";
+        Database::executeSQL($sql);
+    }
+    
+    public function updateUser(){
+        $sql = "UPDATE pessoa SET nome = '{$this->name}', senha = '{$this->password}'
+            WHERE id = {$this->id}";
+        Database::executeSQL($sql);
+        
+        $sql = "UPDATE usuario SET funcao_id = {$this->role}
+            WHERE pessoa_id = {$this->id}";
+        Database::executeSQL($sql);
+        
+        $sql = "UPDATE telefone_pessoa SET telefone = {$this->phone}
+            WHERE pessoa_id = {$this->id}";
+        Database::executeSQL($sql);
+    }
+
+    public static function deleteUserById($id) {
+        $sql = "UPDATE pessoa SET ativo = FALSE WHERE id = {$id}";
         Database::executeSQL($sql);
     }
 }

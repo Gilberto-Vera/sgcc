@@ -28,15 +28,14 @@
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                         aria-expanded="true" aria-controls="collapseTwo">
-                        <i class="fas fa-fw fa-thumbtack"></i>
-                        <span>Evento</span>
+                        <i class="fas fa-fw fa-user"></i>
+                        <span>Usuário</span>
                     </a>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="#">Cadastro</a>
-                            <a class="collapse-item" href="#">Lista</a>
-                            <a class="collapse-item" href="#">Convidados</a>
+                            <a class="collapse-item" href="manage_user.php">Cadastro</a>
+                            <a class="collapse-item" href="user.php">Lista</a>
                         </div>
                     </div>
                 </li>
@@ -51,6 +50,21 @@
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="manage_provider.php">Cadastro</a>
                             <a class="collapse-item" href="provider.php">Lista</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsefour"
+                        aria-expanded="true" aria-controls="collapsefour">
+                        <i class="fas fa-fw fa-thumbtack"></i>
+                        <span>Evento</span>
+                    </a>
+                    <div id="collapsefour" class="collapse" aria-labelledby="headingfour"
+                        data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="#">Cadastro</a>
+                            <a class="collapse-item" href="#">Lista</a>
+                            <a class="collapse-item" href="#">Convidados</a>
                         </div>
                     </div>
                 </li>

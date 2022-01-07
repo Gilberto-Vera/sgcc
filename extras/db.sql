@@ -13,19 +13,6 @@ CREATE TABLE IF NOT EXISTS "pessoa" (
 CREATE UNIQUE INDEX IF NOT EXISTS "email_UNIQUE1" ON "pessoa" ("email" ASC);
 
 -- -----------------------------------------------------
--- Table "administrador"
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS "administrador" (
-  "id" SERIAL NOT NULL,
-  "pessoa_id" INT NOT NULL,
-  PRIMARY KEY ("id"),
-  CONSTRAINT "fk_administrador_pessoa"
-    FOREIGN KEY ("pessoa_id")
-      REFERENCES "pessoa" ("id"))
-;
-
-
--- -----------------------------------------------------
 -- Table "cliente"
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS "cliente" (
@@ -48,6 +35,7 @@ CREATE TABLE IF NOT EXISTS "evento" (
   "nome" VARCHAR(45) NOT NULL,
   "data" TIMESTAMP NOT NULL,
   "num_convidados" INT NOT NULL,
+  "observacao" TEXT NULL,
   PRIMARY KEY ("id"))
 ;
 
@@ -251,7 +239,6 @@ CREATE TABLE IF NOT EXISTS "situacao" (
   "id" SERIAL NOT NULL,
   "evento_id" INT NOT NULL,
   "nome" VARCHAR(45) NOT NULL,
-  "observacao" TEXT NULL,
   PRIMARY KEY ("id"),
   CONSTRAINT "fk_situacao_evento"
     FOREIGN KEY ("evento_id")
@@ -307,16 +294,29 @@ CREATE TABLE IF NOT EXISTS "telefone_pessoa" (
 
 
 -- -----------------------------------------------------
+-- Table "funcao"
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS "funcao" (
+  "id" SERIAL NOT NULL,
+  "descricao" VARCHAR(45) NULL,
+  PRIMARY KEY ("id"))
+;
+
+
+-- -----------------------------------------------------
 -- Table "usuario"
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS "usuario" (
   "id" SERIAL NOT NULL,
   "pessoa_id" INT NOT NULL,
-  "funcao" VARCHAR(45) NULL,
+  "funcao_id" INT NOT NULL,
   PRIMARY KEY ("id"),
   CONSTRAINT "fk_usuario_pessoa"
     FOREIGN KEY ("pessoa_id")
-      REFERENCES "pessoa" ("id"))
+      REFERENCES "pessoa" ("id"),
+  CONSTRAINT "fk_usuario_funcao"
+    FOREIGN KEY ("funcao_id")
+      REFERENCES "funcao" ("id"))
 ;
 
 
@@ -339,15 +339,51 @@ CREATE TABLE IF NOT EXISTS "usuario_evento" (
 CREATE OR REPLACE FUNCTION inserir_dados() RETURNS void AS
 $$
 BEGIN
+
+  IF (SELECT COUNT(*) FROM funcao) = 0 THEN
+    -- -----------------------------------------------------
+    -- Insert "funcao"
+    -- -----------------------------------------------------
+    INSERT INTO funcao (id, descricao)
+      VALUES (default, 'Administrador'),
+        (default, 'Proprietário'),
+        (default, 'Gerente'),
+        (default, 'Auxiliar')
+    ;
+
+  END IF;
+
   IF (SELECT COUNT(*) FROM pessoa) = 0 THEN
     -- -----------------------------------------------------
-    -- Insert "administrador"
+    -- Insert "usuarios"
     -- -----------------------------------------------------
     INSERT INTO pessoa (id, nome, email, senha, ativo)
-      VALUES (default, 'admin', 'admin@admin', 'admin', TRUE);
+      VALUES (default, 'admin', 'admin@admin', 'admin', TRUE),
+        (default, 'Isaac Mateus Lopes', 'isaacmateuslopes-80@anbima.com.br', 'R3f8nY4JrD', TRUE),
+        (default, 'Márcio Antonio Duarte', 'marcioantonioduarte@fernandesfilpi.com.br', 'JUPH8sXc9K', TRUE),
+        (default, 'Vitória Larissa Sandra Santos', 'vitorialarissasandrasantos_@sdrifs.com.br', 'EaZ3dJHWGl', TRUE),
+        (default, 'Gustavo Breno Pereira', 'ggustavobrenopereira@its.jnj.com', 'juZCHR7hJx', TRUE),
+        (default, 'Carla Gabrielly Evelyn Cavalcanti', 'cavalcanti-86@bhcervejas.com.br', 'FrG8lLeUal', TRUE),
+        (default, 'Maitê Lavínia Adriana da Mata', 'maitelaviniaadrianadamata-80@desari.com.br', '5DnuguJ1uo', TRUE),
+        (default, 'Rebeca Flávia Lúcia Farias', 'rrebecaflavialuciafarias@ssala.com.br', 'Ud7f4Zp6ef', TRUE),
+        (default, 'Marcos Ruan Santos', 'marcosruansantos_@fosj.unesp.br', 'LiYK6I9puP', TRUE),
+        (default, 'Valentina Luana Melo', 'valentinaluanamelo_@campanati.com.br', '2Yh9hcA2QL', TRUE),
+        (default, 'Emilly Josefa Bárbara Moreira', 'emillyjosefabarbaramoreira@ymail.com', 'GndjTI71A1', TRUE)
+    ;
 
-    INSERT INTO administrador (id, pessoa_id)
-      VALUES (default, 1);
+    INSERT INTO usuario (id, pessoa_id, funcao_id)
+      VALUES (default, 1, 1),
+        (default, 2, 2),
+        (default, 3, 3),
+        (default, 4, 3),
+        (default, 5, 4),
+        (default, 6, 4),
+        (default, 7, 4),
+        (default, 8, 4),
+        (default, 9, 4),
+        (default, 10, 4),
+        (default, 11, 4)
+    ;
 
     -- -----------------------------------------------------
     -- Insert "cliente"
@@ -375,48 +411,59 @@ BEGIN
         (default, 'Tiger Nixon', 'Edinburgh@seila.com', 61, TRUE)
     ;
     INSERT INTO cliente (id, pessoa_id, endereco, cpf)
-      VALUES (default, 2, 'Garrett Winters Nª50 Accountant Seila', 12345676357),
-        (default, 3, 'Ashton Cox Nª513 Author Seila', 68137485666),
-        (default, 4, 'Cedric Kelly Nª134 Developer Seila', 22357135274),
-        (default, 5, 'Airi Satou Nª5 Senior Seila', 55476271933),
-        (default, 6, 'Brielle Williamson Nª183 Williamson Seila', 16781135761),
-        (default, 7, 'Herrod Chandler Nª953 Chandler Seila', 15279665759),
-        (default, 8, 'Rhona Davidson Nª937 Davidson Seila', 51235795165),
-        (default, 9, 'Colleen Hurst Nª509 Hurst Seila', 57495314239),
-        (default, 10, 'Sonya Frost Nª42 Frost Seila', 41357921523),
-        (default, 11, 'Jena Gaines Nª153 Gaines Seila', 30125789461),
-        (default, 12, 'Quinn Flynn Nº183 Flynn Seila', 27495314524),
-        (default, 13, 'Charde Marshall Nº1358 Marshall Seila', 25679186336),
-        (default, 14, 'Haley Kennedy Nº786 Kennedy Seila', 76219438443),
-        (default, 15, 'Tatyana Fitzpatrick Nº275 Fitzpatrick Seila', 19296354891),
-        (default, 16, 'Michael Silva Nº785 Silva Seila', 56348749166),
-        (default, 17, 'Paul Byrd Nº63 Byrd Seila', 64521479863),
-        (default, 18, 'Gloria Little Nº563 Little Seila', 55957419635),
-        (default, 19, 'Bradley Greer Nº93 Greer Seila', 45315749511),
-        (default, 20, 'Dai Rios Nº359 Rios Seila', 35897653154),
-        (default, 21, 'Tiger Nixon Nº635 Edinburgh Seila', 63579421561)
+      VALUES (default, 12, 'Garrett Winters Nª50 Accountant Seila', 12345676357),
+        (default, 13, 'Ashton Cox Nª513 Author Seila', 68137485666),
+        (default, 14, 'Cedric Kelly Nª134 Developer Seila', 22357135274),
+        (default, 15, 'Airi Satou Nª5 Senior Seila', 55476271933),
+        (default, 16, 'Brielle Williamson Nª183 Williamson Seila', 16781135761),
+        (default, 17, 'Herrod Chandler Nª953 Chandler Seila', 15279665759),
+        (default, 18, 'Rhona Davidson Nª937 Davidson Seila', 51235795165),
+        (default, 19, 'Colleen Hurst Nª509 Hurst Seila', 57495314239),
+        (default, 20, 'Sonya Frost Nª42 Frost Seila', 41357921523),
+        (default, 21, 'Jena Gaines Nª153 Gaines Seila', 30125789461),
+        (default, 22, 'Quinn Flynn Nº183 Flynn Seila', 27495314524),
+        (default, 23, 'Charde Marshall Nº1358 Marshall Seila', 25679186336),
+        (default, 24, 'Haley Kennedy Nº786 Kennedy Seila', 76219438443),
+        (default, 25, 'Tatyana Fitzpatrick Nº275 Fitzpatrick Seila', 19296354891),
+        (default, 26, 'Michael Silva Nº785 Silva Seila', 56348749166),
+        (default, 27, 'Paul Byrd Nº63 Byrd Seila', 64521479863),
+        (default, 28, 'Gloria Little Nº563 Little Seila', 55957419635),
+        (default, 29, 'Bradley Greer Nº93 Greer Seila', 45315749511),
+        (default, 30, 'Dai Rios Nº359 Rios Seila', 35897653154),
+        (default, 31, 'Tiger Nixon Nº635 Edinburgh Seila', 63579421561)
     ;
     INSERT INTO telefone_pessoa (id, pessoa_id, telefone, principal, descricao)
-      VALUES (default, 2, 995676357, TRUE, 'celular'),
-        (default, 3, 937485666, TRUE, 'celular'),
-        (default, 4, 957135274, TRUE, 'celular'),
-        (default, 5, 976271933, TRUE, 'celular'),
-        (default, 6, 981135761, TRUE, 'celular'),
-        (default, 7, 979665759, TRUE, 'celular'),
-        (default, 8, 935795165, TRUE, 'celular'),
-        (default, 9, 995314239, TRUE, 'celular'),
-        (default, 10, 957921523, TRUE, 'celular'),
-        (default, 11, 925789461, TRUE, 'celular'),
-        (default, 12, 995314524, TRUE, 'celular'),
-        (default, 13, 979186336, TRUE, 'celular'),
-        (default, 14, 919438443, TRUE, 'celular'),
-        (default, 15, 996354891, TRUE, 'celular'),
-        (default, 16, 948749166, TRUE, 'celular'),
-        (default, 17, 921479863, TRUE, 'celular'),
-        (default, 18, 957419635, TRUE, 'celular'),
-        (default, 19, 915749511, TRUE, 'celular'),
-        (default, 20, 997653154, TRUE, 'celular'),
-        (default, 21, 979421561, TRUE, 'celular')
+      VALUES (default, 1, 999743570, TRUE, 'celular'),
+        (default, 2, 986442875, TRUE, 'celular'),
+        (default, 3, 988623812, TRUE, 'celular'),
+        (default, 4, 995464099, TRUE, 'celular'),
+        (default, 5, 985308681, TRUE, 'celular'),
+        (default, 6, 993501588, TRUE, 'celular'),
+        (default, 7, 992899566, TRUE, 'celular'),
+        (default, 8, 999758384, TRUE, 'celular'),
+        (default, 9, 981999191, TRUE, 'celular'),
+        (default, 10, 982579815, TRUE, 'celular'),
+        (default, 11, 988888855, TRUE, 'celular'),
+        (default, 12, 994501968, TRUE, 'celular'),
+        (default, 13, 937485666, TRUE, 'celular'),
+        (default, 14, 957135274, TRUE, 'celular'),
+        (default, 15, 976271933, TRUE, 'celular'),
+        (default, 16, 981135761, TRUE, 'celular'),
+        (default, 17, 979665759, TRUE, 'celular'),
+        (default, 18, 935795165, TRUE, 'celular'),
+        (default, 19, 995314239, TRUE, 'celular'),
+        (default, 20, 957921523, TRUE, 'celular'),
+        (default, 21, 925789461, TRUE, 'celular'),
+        (default, 22, 995314524, TRUE, 'celular'),
+        (default, 23, 979186336, TRUE, 'celular'),
+        (default, 24, 919438443, TRUE, 'celular'),
+        (default, 25, 996354891, TRUE, 'celular'),
+        (default, 26, 948749166, TRUE, 'celular'),
+        (default, 27, 921479863, TRUE, 'celular'),
+        (default, 28, 957419635, TRUE, 'celular'),
+        (default, 29, 915749511, TRUE, 'celular'),
+        (default, 30, 997653154, TRUE, 'celular'),
+        (default, 31, 979421561, TRUE, 'celular')
     ;
 
   END IF;
@@ -425,8 +472,8 @@ BEGIN
     -- -----------------------------------------------------
     -- Insert "evento"
     -- -----------------------------------------------------
-    INSERT INTO evento (id, nome, data, num_convidados)
-      VALUES (default, 'Inicial', '1979-03-28 23:57:02', 1)
+    INSERT INTO evento (id, nome, data, num_convidados, observacao)
+      VALUES (default, 'Inicial', '1979-03-28 23:57:02', 1, '')
     ;
   END IF;
 
@@ -434,12 +481,12 @@ BEGIN
     -- -----------------------------------------------------
     -- Insert "situacao"
     -- -----------------------------------------------------
-    INSERT INTO situacao (id, evento_id, nome, observacao)
-      VALUES (default, 1, 'Iniciado', ''),
-        (default, 1, 'Confirmado', ''),
-        (default, 1, 'Finalizado', ''),
-        (default, 1, 'Bloqueado', ''),
-        (default, 1, 'Cancelado', '')
+    INSERT INTO situacao (id, evento_id, nome)
+      VALUES (default, 1, 'Iniciado'),
+        (default, 1, 'Confirmado'),
+        (default, 1, 'Finalizado'),
+        (default, 1, 'Bloqueado'),
+        (default, 1, 'Cancelado')
     ;
   END IF;
 

@@ -14,12 +14,12 @@ Class Provider extends Model{
     ];
 
     public function insert() {
-        $this->validateProvider();
+        $this->validate();
         return parent::insertProvider();
     }
 
     public function update() {
-        $this->validateUpdateProvider();
+        $this->validateUpdate();
         return parent::updateProvider();
     }
 
@@ -30,7 +30,7 @@ Class Provider extends Model{
         return $result ? pg_fetch_assoc($result) : null;
     }
 
-    private function validateProvider(){
+    private function validate(){
         $errors = [];
 
         if(!$this->corporate_name){
@@ -99,7 +99,7 @@ Class Provider extends Model{
         }
     }
 
-    private function validateUpdateProvider(){
+    private function validateUpdate(){
         $errors = [];
 
         if(!$this->corporate_name){

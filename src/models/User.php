@@ -1,28 +1,28 @@
 <?php
 
-Class Client extends People{
+Class User extends People{
 
-    protected static $tablename = 'cliente';
+    protected static $tablename = 'usuario';
     protected static $columns = [
         'id',
         'name',
-        'cpf',
         'phone',
-        'address',
         'email',
+        'role',
         'password',
+        'admin',
     ];
     
     public function insert() {
         $this->validate();
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-        return parent::insertClient();
+        return parent::insertUser();
     }
     
     public function update() {
         $this->validateUpdate();
         $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-        return parent::updateClient();
+        return parent::updateUser();
     }
 
     private function validate(){
@@ -36,14 +36,6 @@ Class Client extends People{
             $this->name = validateName($this->name);
         }
 
-        if(!$this->cpf){
-            $errors['cpf'] = 'Insira um CPF...';
-        }elseif(!validateCPF($this->cpf)){
-            $errors['cpf'] = 'CPF inválido...';
-        }else{
-            $this->cpf = validateCPF($this->cpf);
-        }
-
         $phone = validatePhone($this->phone);
         if(!$this->phone){
             $errors['phone'] = 'Insira um telefone...';
@@ -53,10 +45,8 @@ Class Client extends People{
             $this->phone = $phone['number'];
         }
 
-        if(!$this->address){
-            $errors['address'] = 'Insira um Endereço...';
-        }else{
-            $this->address = validate($this->address);
+        if(!$this->role){
+            $errors['role'] = 'Escolha uma função...';
         }
 
         if(!$this->email){
@@ -111,12 +101,10 @@ Class Client extends People{
             $this->phone = $phone['number'];
         }
 
-        if(!$this->address){
-            $errors['address'] = 'Insira um Endereço...';
-        }else{
-            $this->address = validate($this->address);
+        if(!$this->role){
+            $errors['role'] = 'Escolha uma função...';
         }
-
+        
         if(!$this->password) {
             $errors['password'] = 'Insira uma senha...';
         }elseif(!validatePassword($this->password)){
