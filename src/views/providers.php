@@ -11,7 +11,7 @@
                             <h1 class="h4 text-gray-900 my-2">Lista de Fornecedores</h1>
                         </div>
                         <?php include(TEMPLATE_PATH . '/messages.php') ?>
-                        <table class="table table-bordered table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr class="text-center">
                                     <th>Nome</th>
@@ -27,18 +27,19 @@
                                 <?php foreach($providers as $provider) { ?>
                                     <tr>
                                         <td><?= $provider->business_name ?></td>
-                                        <td><?= $provider->contact ?></td>
-                                        <td><?= $provider->phone ?></td>
-                                        <td><?= $provider->email ?></td>
-                                        <td><?= $provider->service ?></td>
-                                        <td class="text-center">
-                                            <a class="btn btn-warning btn-sm rounded-circle" href="manage_provider.php?update=<?= $provider->id ?>">
-                                            <i class="fas fa-fw fa-edit"></i></a>
+                                        <td class="align-middle"><?= $provider->contact ?></td>
+                                        <td class="text-center align-middle"><?= $provider->phone ?></td>
+                                        <td class="align-middle"><?= $provider->email ?></td>
+                                        <td class="align-middle"><?= $provider->service ?></td>
+                                        <td class="text-center py-0 align-middle">
+                                            <a class="btn btn-warning btn-sm rounded-circle" 
+                                                href="manage_provider.php?update=<?= $provider->id ?>">
+                                                <i class="fas fa-fw fa-edit"></i></a>
                                         </td>
-                                        <td class="text-center">
-                                            <a class="btn btn-danger btn-sm rounded-circle" href="#" data-toggle="modal" 
+                                        <td class="text-center py-0 align-middle">
+                                            <a class="btn btn-danger btn-sm rounded-circle" data-toggle="modal" 
                                                 data-target="#modal_del" data-id="<?= $provider->id ?>">
-                                            <i class="fas fa-fw fa-eraser"></i></a>
+                                                <i class="fas fa-fw fa-eraser"></i></a>
                                         </td>
                                     </tr>						
                                 <?php }; ?>
@@ -52,7 +53,7 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Remover fornecedor</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true"><</span>
+                                            <span aria-hidden="true">x</span>
                                         </button>
                                 </div>
                                 <div class="modal-body">

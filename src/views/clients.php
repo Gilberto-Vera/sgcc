@@ -11,7 +11,7 @@
                             <h1 class="h4 text-gray-900 my-2">Listar cliente</h1>
                         </div>
                         <?php include(TEMPLATE_PATH . '/messages.php') ?>
-                        <table class="table table-bordered table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr class="text-center">
                                     <th>Nome</th>
@@ -24,14 +24,14 @@
                             <tbody>
                                 <?php foreach($clients as $client) { ?>
                                     <tr>
-                                        <td><?= $client->nome ?></td>
-                                        <td><?= $client->telefone ?></td>
-                                        <td><?= $client->email ?></td>
-                                        <td class="text-center">
+                                        <td class="align-middle"><?= $client->nome ?></td>
+                                        <td class="text-center align-middle"><?= $client->telefone ?></td>
+                                        <td class="align-middle"><?= $client->email ?></td>
+                                        <td class="text-center py-0 align-middle">
                                             <a class="btn btn-warning btn-sm rounded-circle" href="manage_client.php?update=<?= $client->id ?>">
                                             <i class="fas fa-fw fa-edit"></i></a>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center py-0 align-middle">
                                             <a class="btn btn-danger btn-sm rounded-circle" href="#" data-toggle="modal" 
                                                 data-target="#modal_del" data-id="<?= $client->id ?>">
                                             <i class="fas fa-fw fa-eraser"></i></a>
@@ -48,7 +48,7 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Remover cliente</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true"><</span>
+                                            <span aria-hidden="true">x</span>
                                         </button>
                                 </div>
                                 <div class="modal-body">

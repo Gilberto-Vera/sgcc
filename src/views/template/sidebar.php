@@ -63,8 +63,7 @@
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="#">Cadastro</a>
-                            <a class="collapse-item" href="#">Lista</a>
-                            <a class="collapse-item" href="#">Convidados</a>
+                            <a class="collapse-item" href="event.php">Lista</a>
                         </div>
                     </div>
                 </li>

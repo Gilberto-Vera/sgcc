@@ -91,6 +91,13 @@ function validatePassword($password){
     return $password;
 }
 
+function validateNumeric($numeric){
+    if (!is_numeric($numeric)) {
+        return false;
+    }
+    return $numeric;
+}
+
 /**
  * A função abaixo demonstra o uso de uma expressão regular que identifica, de forma simples, telefones válidos no Brasil.
  * Exemplos válidos: +55 (21) 98888-8888 / 9999-9999 / 21 98888-8888 / 5511988888888 / +55 (021) 98888-8888 / 021 99995-3333

@@ -303,4 +303,121 @@ Class Model{
         $sql = "UPDATE pessoa SET ativo = FALSE WHERE id = {$id}";
         Database::executeSQL($sql);
     }
+
+    public function getEvent(){
+        $objects = [];
+        $sql = "SELECT evento.id, nome, data, num_convidados FROM evento
+        WHERE evento.ativo = TRUE";
+        $class = get_called_class();
+        $result = Database::getResultFromQuery($sql);
+        return $result ? new $class(pg_fetch_assoc($result)) : null;
+    }
+
+    //TODO: adicionar outros componentes do evento
+    public static function getEvents(){
+        $objects = [];
+        $sql = "SELECT evento.id, evento.nome AS name, data
+                    FROM evento";
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            while ($row = pg_fetch_assoc($result)) {
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
+    }
+
+    public static function getIdEvent($guest_id){
+        $sql = "SELECT evento.id FROM evento
+                    INNER JOIN convidado_evento ON convidado_evento.evento_id = evento.id
+                    WHERE convidado_id = {$guest_id}";
+        $class = get_called_class();
+        $result = Database::getResultFromQuery($sql);
+        return $result ? new $class(pg_fetch_assoc($result)) : null;
+    }
+
+    public static function getGuests($id){
+        $objects = [];
+        $sql = "SELECT convidado.id, convidado.nome AS name, num_acompanhantes AS num_accompany, 
+                    email, telefone AS phone, situacao AS confirm, evento.nome AS event_name FROM convidado
+                    INNER JOIN telefone_convidado ON telefone_convidado.convidado_id = convidado.id
+                    INNER JOIN convidado_evento ON convidado_evento.convidado_id = convidado.id
+                    INNER JOIN evento ON convidado_evento.evento_id = evento.id
+                    WHERE evento_id = {$id}";
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            while ($row = pg_fetch_assoc($result)) {
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
+    }
+
+    public static function guestsTotal($event_id){
+        $objects = [];
+        $sql = "SELECT num_convidados AS initial, SUM(num_acompanhantes + 1) AS guests,
+                    SUM(CASE WHEN situacao = TRUE THEN num_acompanhantes + 1 ELSE null END) AS confirmed FROM evento	
+                    INNER JOIN convidado_evento ON convidado_evento.evento_id = evento.id
+                    INNER JOIN convidado ON convidado.id = convidado_evento.convidado_id
+                    WHERE evento.id = {$event_id}
+                    GROUP BY evento.id";
+        
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            while ($row = pg_fetch_assoc($result)) {
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
+    }
+    
+    public function insertGuest(){
+        $sql = "INSERT INTO convidado (id, nome, num_acompanhantes, email)
+            VALUES (default, '{$this->name}', '{$this->num_accompany}', '{$this->email}') RETURNING id";
+        $id = Database::executeSQL($sql);
+        $this->id = $id[0];
+        
+        $sql = "INSERT INTO convidado_evento (id, evento_id, convidado_id, situacao)
+            VALUES (default, {$this->event_id}, {$this->id}, {$this->confirm})";
+        Database::executeSQL($sql);
+        
+        $sql = "INSERT INTO telefone_convidado (id, convidado_id, telefone, principal)
+            VALUES (default, {$this->id}, {$this->phone}, TRUE)";
+        Database::executeSQL($sql);
+    }
+
+    public static function getGuest($id){
+        $objects = [];
+        $sql = "SELECT convidado.id, convidado.nome AS name, num_acompanhantes AS num_accompany, 
+                    email, telefone AS phone, situacao AS confirm FROM convidado
+                    INNER JOIN telefone_convidado ON telefone_convidado.convidado_id = convidado.id
+                    INNER JOIN convidado_evento ON convidado_evento.convidado_id = convidado.id
+                    WHERE convidado.id = {$id}";
+        $class = get_called_class();
+        $result = Database::getResultFromQuery($sql);
+        return $result ? new $class(pg_fetch_assoc($result)) : null;
+    }
+    
+    public function updateGuest($id){
+        $sql = "UPDATE convidado SET nome = '{$this->name}', num_acompanhantes = '{$this->num_accompany}'
+            WHERE id = {$this->id}";
+        Database::executeSQL($sql);
+        
+        $sql = "UPDATE convidado_evento SET situacao = {$this->confirm}
+            WHERE convidado_id = {$this->id}";
+        Database::executeSQL($sql);
+        
+        $sql = "UPDATE telefone_convidado SET telefone = {$this->phone}
+            WHERE convidado_id = {$this->id}";
+        Database::executeSQL($sql);
+    }
+
+    public static function deleteGuestById($id) {
+        $sql = "DELETE FROM convidado 
+            WHERE id = {$id}";
+        Database::executeSQL($sql);
+    }
 }

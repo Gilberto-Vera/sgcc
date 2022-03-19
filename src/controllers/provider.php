@@ -13,4 +13,4 @@ if(isset($_GET['delete'])) {
 }
 $providers = Provider::getProviders([]);
 
-loadTemplateView('provider', ['providers' => $providers, 'exception' => $exception]);
+loadTemplateView('providers', ['providers' => $providers, 'exception' => $exception]);

@@ -8,3 +8,18 @@ a.nav-link.avatar {
     height: 55px;
     padding-left: 20px;
 }
+
+.confirm {
+    color: green;
+    font-size: 18px;
+}
+
+.no_confirm {
+    color: red;
+    font-size: 18px;
+}
+
+.guest_confirm {
+    color: red;
+    font-size: 22px;
+}
