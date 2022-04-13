@@ -32,4 +32,13 @@ class Database {
         pg_close($conn);
         return $row;
     }
+
+    public static function executeOnlySQL($sql){
+        $conn = self::getConnection();
+        $result = pg_query($conn, $sql);
+        if(!$result) {
+            throw new Exception(pg_last_error($conn));
+        }
+        pg_close($conn);
+    }
 }

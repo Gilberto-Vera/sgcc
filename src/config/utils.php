@@ -76,7 +76,7 @@ function validateEmail($email){
 }
 
 function validateName($name){
-    if (!preg_match('/^[a-zA-Z0-9\s]+$/', $name)) {
+    if (!preg_match('/^[a-zA-Z0-9\s]\p{L}+/', $name)) { // /^[a-zA-Z0-9\s\x{00C0}-\x{00ff}]+$/
         return false;
     }
     $name = validate($name);

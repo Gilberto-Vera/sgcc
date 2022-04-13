@@ -3,40 +3,51 @@
         <div class="container-fluid">
             <div class="card shadow mt-4 mb-4">
                 <div class="card-header">
-                    <h4 class="mb-0 ml-2 font-weight-bold text-primary">Fornecedor</h4>
+                    <h4 class="mb-0 ml-2 font-weight-bold text-primary">Roteiros</h4>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive">
+                <div class="table-responsive">
+                    <div class="card-body">
                         <div class="mb-0 card-title text-center">
-                            <h1 class="h4 text-gray-900 my-2">Lista de Fornecedores</h1>
+                            <h1 class="h4 text-gray-900 my-0">Lista de roteiros</h1>
+                        </div>
+                        <div class="container-fluid pt-1 pb-3 px-3">
+                            <div class="row align-items-center">
+                                <div class="col pl-0">
+                                    <a href="manage_event_roadmap.php?event=<?= $event_id ?>" class="btn btn-primary btn-sm btn-user">
+                                        <i class="fas fa-fw fa-plus"></i> Cadastrar roteiro</a>
+                                </div>
+                                <div class="col pr-0">
+                                </div>
+                            </div>
                         </div>
                         <?php include(TEMPLATE_PATH . '/messages.php') ?>
                         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr class="text-center bg-secondary text-white">
                                     <th>Nome</th>
-                                    <th>Contato</th>
-                                    <th>Telefone</th>
-                                    <th>Serviço</th>
+                                    <th>Hora</th>
+                                    <th>Sequência</th>
                                     <th>Editar</th>
                                     <th>Remover</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($providers as $provider) { ?>
+                                <?php foreach($roadmaps as $roadmap) { ?>
                                     <tr>
-                                        <td><?= $provider->business_name ?></td>
-                                        <td class="align-middle"><?= $provider->contact ?></td>
-                                        <td class="text-center align-middle"><?= $provider->phone ?></td>
-                                        <td class="align-middle"><?= $provider->service ?></td>
+                                        <td class="align-middle"><?= $roadmap->name ?></td>
+                                        <td class="align-middle text-center">
+                                            <?= !$roadmap->minute ? $roadmap->hour . ':' . '00' : $roadmap->hour . ':' . $roadmap->minute ?></td>
+                                        <td class="text-center py-0 align-middle">
+                                            <a class="btn btn-primary btn-sm btn-block" href="#">Sequência</a>
+                                        </td>
                                         <td class="text-center py-0 align-middle">
                                             <a class="btn btn-warning btn-sm rounded-circle" 
-                                                href="manage_provider.php?update=<?= $provider->id ?>">
+                                                href="manage_event_roadmap.php?update=<?= $roadmap->id ?>&event=<?= $event_id ?>">
                                                 <i class="fas fa-fw fa-edit"></i></a>
                                         </td>
                                         <td class="text-center py-0 align-middle">
                                             <a class="btn btn-danger btn-sm rounded-circle" data-toggle="modal" 
-                                                data-target="#modal_del" data-id="<?= $provider->id ?>">
+                                                data-target="#modal_del" data-id="<?= $roadmap->id ?>">
                                                 <i class="fas fa-fw fa-eraser"></i></a>
                                         </td>
                                     </tr>						
@@ -49,13 +60,13 @@
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Remover fornecedor</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Remover roteiro</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">x</span>
                                         </button>
                                 </div>
                                 <div class="modal-body">
-                                    Tem certeza de deseja remover este fornecedor?
+                                    Tem certeza de deseja remover este roteiro?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal" 
@@ -69,3 +80,4 @@
             </div>  
         </div>
     </div>
+

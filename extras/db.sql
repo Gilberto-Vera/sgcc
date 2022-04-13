@@ -125,7 +125,8 @@ CREATE TABLE IF NOT EXISTS "log" (
 CREATE TABLE IF NOT EXISTS "modelo_roteiro" (
   "id" SERIAL NOT NULL,
   "nome" VARCHAR(45) NOT NULL,
-  "horario" VARCHAR(15) NULL,
+  "hora" INT NOT NULL,
+  "minuto" INT NOT NULL,
   PRIMARY KEY ("id"))
 ;
 
@@ -142,7 +143,8 @@ CREATE TABLE IF NOT EXISTS "modelo_sequencia" (
   PRIMARY KEY ("id"),
   CONSTRAINT "fk_modelo_sequencia_modelo_roteiro"
     FOREIGN KEY ("modelo_roteiro_id")
-      REFERENCES "modelo_roteiro" ("id"))
+      REFERENCES "modelo_roteiro" ("id")
+      ON DELETE CASCADE)
 ;
 
 CREATE UNIQUE INDEX IF NOT EXISTS "ordem_UNIQUE1" ON "modelo_sequencia" ("ordem" ASC);
@@ -187,8 +189,8 @@ CREATE TABLE IF NOT EXISTS "roteiro" (
   "id" SERIAL NOT NULL,
   "evento_id" INT NOT NULL,
   "nome" VARCHAR(45) NOT NULL,
-  "horario" VARCHAR(15) NULL,
-  "situacao" BOOLEAN NOT NULL,
+  "hora" INT NOT NULL,
+  "minuto" INT NOT NULL,
   PRIMARY KEY ("id"),
   CONSTRAINT "fk_roteiro_evento"
     FOREIGN KEY ("evento_id")
@@ -202,16 +204,15 @@ CREATE TABLE IF NOT EXISTS "roteiro" (
 CREATE TABLE IF NOT EXISTS "sequencia" (
   "id" SERIAL NOT NULL,
   "roteiro_id" INT NOT NULL,
-  "descricao" VARCHAR(45) NOT NULL,
+  "descricao" VARCHAR(100) NOT NULL,
   "ordem" INT NOT NULL,
   "observacao" TEXT NULL,
   PRIMARY KEY ("id"),
   CONSTRAINT "fk_sequencia_roteiro"
     FOREIGN KEY ("roteiro_id")
-      REFERENCES "roteiro" ("id"))
+      REFERENCES "roteiro" ("id")
+      ON DELETE CASCADE)
 ;
-
-CREATE UNIQUE INDEX IF NOT EXISTS "ordem_UNIQUE2" ON "sequencia" ("ordem" ASC);
 
 
 -- -----------------------------------------------------
@@ -799,6 +800,67 @@ BEGIN
         (default, 3, 68, TRUE),
         (default, 1, 69, FALSE),
         (default, 1, 70, FALSE)
+    ;
+  END IF;
+
+  IF (SELECT COUNT(*) FROM roteiro) = 0 THEN
+    -- -----------------------------------------------------
+    -- Insert "roteiro"
+    -- -----------------------------------------------------
+    INSERT INTO roteiro (id, evento_id, nome, hora, minuto)
+      VALUES (default, 1, 'Cerimônia', 17, 30),
+        (default, 1, 'Recepção', 19, 00),
+        (default, 2, 'Cerimônia', 18, 00),
+        (default, 2, 'Recepção', 20, 30),
+        (default, 3, 'Cerimônia', 18, 30),
+        (default, 3, 'Recepção', 19, 30)
+    ;
+  END IF;
+
+  IF (SELECT COUNT(*) FROM sequencia) = 0 THEN
+    -- -----------------------------------------------------
+    -- Insert "sequencia"
+    -- -----------------------------------------------------
+    INSERT INTO sequencia (id, roteiro_id, descricao, ordem, observacao)
+      VALUES (default, 1, 'Descrição 1', 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'),
+        (default, 1, 'Descrição 2', 2, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis.'),
+        (default, 1, 'Descrição 3', 3, 'Aenean congue arcu turpis, non tincidunt diam hendrerit quis.'),
+        (default, 1, 'Descrição 4', 4, 'Sed a consequat elit. Nullam risus magna, euismod a dignissim nec, vehicula quis dui.'),
+        (default, 1, 'Descrição 5', 5, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis. Suspendisse egestas arcu eu nulla fermentum molestie. Vestibulum eleifend lorem eget mattis fringilla. Integer et sapien facilisis, convallis purus rhoncus, viverra nibh.'),
+        (default, 1, 'Descrição 6', 6, 'Donec quis auctor arcu. Aenean bibendum congue erat, quis tempor nibh ultricies sed.'),
+        (default, 1, 'Descrição 7', 7, 'Nunc porttitor, ligula ac dictum tempus, est ante volutpat risus, et sollicitudin leo ipsum vel magna.'),
+        (default, 2, 'Descrição 2', 1, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis.'),
+        (default, 2, 'Descrição 3', 2, 'Aenean congue arcu turpis, non tincidunt diam hendrerit quis.'),
+        (default, 2, 'Descrição 4', 3, 'Sed a consequat elit. Nullam risus magna, euismod a dignissim nec, vehicula quis dui.'),
+        (default, 2, 'Descrição 5', 4, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis. Suspendisse egestas arcu eu nulla fermentum molestie. Vestibulum eleifend lorem eget mattis fringilla. Integer et sapien facilisis, convallis purus rhoncus, viverra nibh.'),
+        (default, 2, 'Descrição 6', 5, 'Donec quis auctor arcu. Aenean bibendum congue erat, quis tempor nibh ultricies sed.'),
+        (default, 2, 'Descrição 7', 6, 'Nunc porttitor, ligula ac dictum tempus, est ante volutpat risus, et sollicitudin leo ipsum vel magna.'),
+        (default, 3, 'Descrição 1', 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'),
+        (default, 3, 'Descrição 2', 2, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis.'),
+        (default, 3, 'Descrição 3', 3, 'Aenean congue arcu turpis, non tincidunt diam hendrerit quis.'),
+        (default, 3, 'Descrição 4', 4, 'Sed a consequat elit. Nullam risus magna, euismod a dignissim nec, vehicula quis dui.'),
+        (default, 3, 'Descrição 5', 5, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis. Suspendisse egestas arcu eu nulla fermentum molestie. Vestibulum eleifend lorem eget mattis fringilla. Integer et sapien facilisis, convallis purus rhoncus, viverra nibh.'),
+        (default, 3, 'Descrição 6', 6, 'Donec quis auctor arcu. Aenean bibendum congue erat, quis tempor nibh ultricies sed.'),
+        (default, 3, 'Descrição 7', 7, 'Nunc porttitor, ligula ac dictum tempus, est ante volutpat risus, et sollicitudin leo ipsum vel magna.'),
+        (default, 4, 'Descrição 2', 1, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis.'),
+        (default, 4, 'Descrição 3', 2, 'Aenean congue arcu turpis, non tincidunt diam hendrerit quis.'),
+        (default, 4, 'Descrição 4', 3, 'Sed a consequat elit. Nullam risus magna, euismod a dignissim nec, vehicula quis dui.'),
+        (default, 4, 'Descrição 5', 4, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis. Suspendisse egestas arcu eu nulla fermentum molestie. Vestibulum eleifend lorem eget mattis fringilla. Integer et sapien facilisis, convallis purus rhoncus, viverra nibh.'),
+        (default, 4, 'Descrição 6', 5, 'Donec quis auctor arcu. Aenean bibendum congue erat, quis tempor nibh ultricies sed.'),
+        (default, 4, 'Descrição 7', 6, 'Nunc porttitor, ligula ac dictum tempus, est ante volutpat risus, et sollicitudin leo ipsum vel magna.'),
+        (default, 5, 'Descrição 1', 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'),
+        (default, 5, 'Descrição 2', 2, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis.'),
+        (default, 5, 'Descrição 3', 3, 'Aenean congue arcu turpis, non tincidunt diam hendrerit quis.'),
+        (default, 5, 'Descrição 4', 4, 'Sed a consequat elit. Nullam risus magna, euismod a dignissim nec, vehicula quis dui.'),
+        (default, 5, 'Descrição 5', 5, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis. Suspendisse egestas arcu eu nulla fermentum molestie. Vestibulum eleifend lorem eget mattis fringilla. Integer et sapien facilisis, convallis purus rhoncus, viverra nibh.'),
+        (default, 5, 'Descrição 6', 6, 'Donec quis auctor arcu. Aenean bibendum congue erat, quis tempor nibh ultricies sed.'),
+        (default, 5, 'Descrição 7', 7, 'Nunc porttitor, ligula ac dictum tempus, est ante volutpat risus, et sollicitudin leo ipsum vel magna.'),
+        (default, 6, 'Descrição 2', 1, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis.'),
+        (default, 6, 'Descrição 3', 2, 'Aenean congue arcu turpis, non tincidunt diam hendrerit quis.'),
+        (default, 6, 'Descrição 4', 3, 'Sed a consequat elit. Nullam risus magna, euismod a dignissim nec, vehicula quis dui.'),
+        (default, 6, 'Descrição 5', 4, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis. Suspendisse egestas arcu eu nulla fermentum molestie. Vestibulum eleifend lorem eget mattis fringilla. Integer et sapien facilisis, convallis purus rhoncus, viverra nibh.'),
+        (default, 6, 'Descrição 6', 5, 'Donec quis auctor arcu. Aenean bibendum congue erat, quis tempor nibh ultricies sed.'),
+        (default, 6, 'Descrição 7', 6, 'Nunc porttitor, ligula ac dictum tempus, est ante volutpat risus, et sollicitudin leo ipsum vel magna.')
     ;
   END IF;
 

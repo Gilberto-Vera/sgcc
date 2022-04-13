@@ -64,13 +64,17 @@
 // $guestData = $guest->getValues();
 // print_r ($guestData['id']);
 
-$test = '';
+// echo "Hoje é " . date("d/m/Y") . "<br>";
+// echo "Hoje é " . date("d/m/Y") . "<br>";
+// echo "Hoje é " . date("d.m.Y") . "<br>";
+// echo "Hoje é " . date("d-m-Y") . "<br>";
+// echo "Hoje é " . date("l");
+// echo "Horário:" . date("H:i:s") . "<br>";
+// echo "Horário" . date("h:i:sa") . "<br>";
 
-if(!isset($test)){
-    echo('não tem nada');
-}else{
-    print_r ($test);
-}
+
+$sql = "UPDATE roteiro SET nome = 'Recepção', hora = 17, minuto = 30 WHERE id = 8";
+Database::executeOnlySQL($sql);
 
 echo ('<br>');
 echo ('Fim!');

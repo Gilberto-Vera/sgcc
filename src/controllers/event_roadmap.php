@@ -7,23 +7,21 @@ $event_id = ($_GET['event']);
 
 if(isset($_GET['delete'])) {
     try {
-        $event = Model::getEventIdFromGuest($_GET['delete']);
+        $event = Model::getEventIdFromRoadmap($_GET['delete']);
         $event_id = $event->getValues();
-        Guest::deleteGuestById($_GET['delete']);
+        Guest::deleteRoadmapById($_GET['delete']);
         addSuccessMsg('Convidado excluido com sucesso...');
-        header("Location: event_guest.php?event={$event_id['id']}");
+        header("Location: event_roadmap.php?event={$event_id['id']}");
         exit();
     } catch (Exception $e) {
         $exception = $e;
     }
 }
 
-$guests = Guest::getGuests($_GET['event']);
-$guestsTotal = Guest::guestsTotal($_GET['event']);
+$roadmaps = Roadmap::getRoadmaps($event_id);
 
-loadTemplateView('event_guests', [
+loadTemplateView('event_roadmaps', [
     'event_id' => $event_id,
-    'guests' => $guests,
-    'guestsTotal' => $guestsTotal,
+    'roadmaps' => $roadmaps,
     'exception' => $exception
 ]);

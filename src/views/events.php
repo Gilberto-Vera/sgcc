@@ -14,11 +14,10 @@
                         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr class="text-center ">
-                                    <th class="align-middle">Nome</th>
-                                    <th class="align-middle">Data</th>
-                                    <!-- <th colspan="4">Convidados</th> -->
-                                    <th class="align-middle" colspan="4">Gerenciar</th>
-                                    <th class="align-middle">Remover</th>
+                                    <th class="align-middle bg-secondary text-white">Nome</th>
+                                    <th class="align-middle bg-secondary text-white">Data</th>
+                                    <th class="align-middle bg-secondary text-white" colspan="4">Gerenciar</th>
+                                    <th class="align-middle bg-secondary text-white">Remover</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -27,17 +26,18 @@
                                         <td class="align-middle"><?= $event->name ?></td>
                                         <td class="text-center align-middle"><?= formatDate($event->data) ?></td>
                                         <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-outline-primary btn-sm btn-block" href="event_guest.php?event=<?= $event->id ?>"
+                                            <a class="btn btn-primary btn-sm btn-block" href="event_guest.php?event=<?= $event->id ?>"
                                             >Convidados</a>
                                         </td>
                                         <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-outline-primary btn-sm btn-block" href="#" role="button">Roteiro</a>
+                                            <a class="btn btn-primary btn-sm btn-block" href="event_roadmap.php?event=<?= $event->id ?>" 
+                                            >Roteiro</a>
                                         </td>
                                         <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-outline-primary btn-sm btn-block" href="#" role="button">Fornecedor</a>
+                                            <a class="btn btn-primary btn-sm btn-block" href="#" >Fornecedor</a>
                                         </td>
                                         <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-outline-primary btn-sm btn-block" href="manage_event.php?update=<?= $event->id ?>">
+                                            <a class="btn btn-primary btn-sm btn-block" href="manage_event.php?update=<?= $event->id ?>">
                                             Evento</a>
                                         </td>
                                         <td class="text-center py-0 align-middle">

@@ -37,7 +37,7 @@ if(count($_POST) === 0 && isset($_GET['update'])){
     }
 }
 
-loadTemplateView('manage_guest', $guestData + [
+loadTemplateView('manage_event_guest', $guestData + [
     'event_id'=> $event_id,
     'exception' => $exception,
     'disabledInput' => $disabledInput

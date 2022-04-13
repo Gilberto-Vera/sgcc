@@ -16,7 +16,7 @@ Class Model{
                 $cleanValue = $value;
                 if($sanitize && isset($cleanValue)){
                     $cleanValue = strip_tags(trim($cleanValue));
-                    $cleanValue = htmlentities($cleanValue, ENT_NOQUOTES);
+                //     $cleanValue = htmlentities($cleanValue, ENT_NOQUOTES);
                 }
                 $this->$key = $cleanValue;
             }
@@ -328,10 +328,19 @@ Class Model{
         return $objects;
     }
 
-    public static function getIdEvent($guest_id){
+    public static function getEventIdFromGuest($id){
         $sql = "SELECT evento.id FROM evento
                     INNER JOIN convidado_evento ON convidado_evento.evento_id = evento.id
-                    WHERE convidado_id = {$guest_id}";
+                    WHERE convidado_id = {$id}";
+        $class = get_called_class();
+        $result = Database::getResultFromQuery($sql);
+        return $result ? new $class(pg_fetch_assoc($result)) : null;
+    }
+
+    public static function getEventIdFromRoadmap($id){
+        $sql = "SELECT evento.id FROM evento
+                    INNER JOIN roteiro ON roteiro.evento_id = evento.id
+                    WHERE roteiro.id = {$id}";
         $class = get_called_class();
         $result = Database::getResultFromQuery($sql);
         return $result ? new $class(pg_fetch_assoc($result)) : null;
@@ -417,6 +426,47 @@ Class Model{
 
     public static function deleteGuestById($id) {
         $sql = "DELETE FROM convidado 
+            WHERE id = {$id}";
+        Database::executeSQL($sql);
+    }
+
+    public static function getRoadmaps($id){
+        $objects = [];
+        $sql = "SELECT id, nome AS name, hora AS hour, minuto AS minute FROM roteiro
+                    WHERE evento_id = {$id}";
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            while ($row = pg_fetch_assoc($result)) {
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
+    }
+    
+    public function insertRoadmap(){
+        $sql = "INSERT INTO roteiro (id, evento_id, nome, hora, minuto)
+            VALUES (default, '{$this->event_id}', '{$this->name}', '{$this->hour}', '{$this->minute}')";
+        $id = Database::executeSQL($sql);
+    }
+
+    public static function getRoadmap($id){
+        $objects = [];
+        $sql = "SELECT id, evento_id AS event_id, nome AS name, hora AS hour, minuto AS minute FROM roteiro
+                    WHERE id = {$id}";
+        $class = get_called_class();
+        $result = Database::getResultFromQuery($sql);
+        return $result ? new $class(pg_fetch_assoc($result)) : null;
+    }
+    
+    public function updateRoadmap($id){
+        $sql = "UPDATE roteiro SET nome = '{$this->name}', hora = {$this->hour}, minuto = {$this->minute}
+            WHERE id = {$this->id}";
+        Database::executeOnlySQL($sql);
+    }
+
+    public static function deleteRoadmapById($id) {
+        $sql = "DELETE FROM roteiro
             WHERE id = {$id}";
         Database::executeSQL($sql);
     }

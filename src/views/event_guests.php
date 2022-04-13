@@ -13,12 +13,13 @@
                         <div class="container-fluid pt-1 pb-3 px-3">
                             <div class="row align-items-center">
                                 <div class="col pl-0">
-                                    <a href="manage_guest.php?event=<?= $event_id ?>" class="btn btn-primary btn-sm btn-user">Cadastrar convidado</a>
+                                    <a href="manage_event_guest.php?event=<?= $event_id ?>" class="btn btn-primary btn-sm btn-user">
+                                        <i class="fas fa-fw fa-plus"></i> Cadastrar convidado</a>
                                 </div>
                                 <div class="col pr-0">
                                     <table class="table-bordered" id="" width="100%" cellspacing="0">
                                         <thead>
-                                            <tr class="text-center">
+                                            <tr class="text-center bg-secondary text-white">
                                                 <th>Estimados</th>
                                                 <th>Confirmados</th>
                                                 <th>Não Confirmados</th>
@@ -40,10 +41,9 @@
                         <?php include(TEMPLATE_PATH . '/messages.php') ?>
                         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                             <thead>
-                                <tr class="text-center">
+                                <tr class="text-center bg-secondary text-white">
                                     <th>Nome</th>
                                     <th>Telefone</th>
-                                    <!-- <th>Email</th> -->
                                     <th>Acompanhantes</th>
                                     <th>Confirmado</th>
                                     <th>Editar</th>
@@ -55,14 +55,13 @@
                                     <tr>
                                         <td class="align-middle"><?= $guest->name ?></td>
                                         <td class="text-center align-middle"><?= $guest->phone ?></td>
-                                        <!-- <td class="align-middle"><?= $guest->email ?></td> -->
                                         <td class="text-center align-middle"><?= $guest->num_accompany ?></td>
                                         <td class="text-center py-0 align-middle"><?= $guest->confirm == 't' ? 
                                             '<i class="fas fa-fw fa-check align-middle confirm">' : 
                                             '<i class="fas fa-fw fa-times align-middle no_confirm">' ?></td>
                                         <td class="text-center py-0 align-middle">
                                             <a class="btn btn-warning btn-sm rounded-circle" 
-                                                href="manage_guest.php?update=<?= $guest->id ?>&event=<?= $event_id ?>">
+                                                href="manage_event_guest.php?update=<?= $guest->id ?>&event=<?= $event_id ?>">
                                                 <i class="fas fa-fw fa-edit"></i></a>
                                         </td>
                                         <td class="text-center py-0 align-middle">
@@ -80,13 +79,13 @@
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Remover usuario</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Remover convidado</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">x</span>
                                         </button>
                                 </div>
                                 <div class="modal-body">
-                                    Tem certeza de deseja remover este usuario?
+                                    Tem certeza de deseja remover este convidado?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal" 

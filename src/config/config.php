@@ -22,5 +22,6 @@ require_once(realpath(MODEL_PATH . '/Provider.php'));
 require_once(realpath(MODEL_PATH . '/User.php'));
 require_once(realpath(MODEL_PATH . '/Event.php'));
 require_once(realpath(MODEL_PATH . '/Guest.php'));
+require_once(realpath(MODEL_PATH . '/Roadmap.php'));
 require_once(realpath(EXCEPTION_PATH . '/AppException.php'));
 require_once(realpath(EXCEPTION_PATH . '/ValidationException.php'));

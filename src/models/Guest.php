@@ -85,8 +85,10 @@ Class Guest extends Model{
             $this->phone = $phone['number'];
         }
 
-        if(!$this->num_accompany){
+        if($this->num_accompany == ''){
             $errors['num_accompany'] = 'Insira a quantidade de acompanhantes...';
+        }elseif(!is_numeric($this->num_accompany)){
+            $errors['num_accompany'] = 'Insira apenas números...';
         }else{
             $this->num_accompany = validateName($this->num_accompany);
         }

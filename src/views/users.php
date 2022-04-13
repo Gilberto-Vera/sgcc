@@ -13,7 +13,7 @@
                         <?php include(TEMPLATE_PATH . '/messages.php') ?>
                         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                             <thead>
-                                <tr class="text-center">
+                                <tr class="text-center bg-secondary text-white">
                                     <th>Nome</th>
                                     <th>Telefone</th>
                                     <th>Email</th>
