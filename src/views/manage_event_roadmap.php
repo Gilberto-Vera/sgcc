@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col text-center">
-                                            <a href="event_roadmap.php?event=<?= $event_id ?>" class="btn btn-secondary btn-user">Listar convidados</a>
+                                            <a href="event_roadmap.php?event=<?= $event_id ?>" class="btn btn-secondary btn-user">Voltar</a>
                                         </div>
                                         <div class="col text-center">
                                             <button class="btn btn-primary btn-user" type="submit">Salvar</button>

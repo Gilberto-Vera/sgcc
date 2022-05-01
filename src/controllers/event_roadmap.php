@@ -7,11 +7,11 @@ $event_id = ($_GET['event']);
 
 if(isset($_GET['delete'])) {
     try {
-        $event = Model::getEventIdFromRoadmap($_GET['delete']);
-        $event_id = $event->getValues();
-        Guest::deleteRoadmapById($_GET['delete']);
+        $event = Roadmap::getEventIdFromRoadmap($_GET['delete']);
+        $eventId = $event->getValues();
+        Roadmap::deleteRoadmapById($_GET['delete']);
         addSuccessMsg('Convidado excluido com sucesso...');
-        header("Location: event_roadmap.php?event={$event_id['id']}");
+        header("Location: event_roadmap.php?event={$eventId['id']}");
         exit();
     } catch (Exception $e) {
         $exception = $e;

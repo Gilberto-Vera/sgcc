@@ -470,4 +470,62 @@ Class Model{
             WHERE id = {$id}";
         Database::executeSQL($sql);
     }
+
+    public static function getSequences($id){
+        $objects = [];
+        $sql = "SELECT id, ordem AS order, descricao AS description, observacao AS note FROM sequencia
+                    WHERE roteiro_id = {$id}";
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            while ($row = pg_fetch_assoc($result)) {
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
+    }
+    
+    public function insertSequence(){
+        $sql = "INSERT INTO sequencia (id, roteiro_id, descricao, ordem, observacao)
+            VALUES (default, '{$this->roadmapId}', '{$this->description}', '{$this->order}', '{$this->note}')";
+        $id = Database::executeSQL($sql);
+    }
+
+    public static function getSequence($id){
+        $objects = [];
+        $sql = "SELECT id, roteiro_id AS roadmapId, descricao AS description, ordem AS order, observacao AS note FROM sequencia
+                    WHERE id = {$id}";
+        $class = get_called_class();
+        $result = Database::getResultFromQuery($sql);
+        return $result ? new $class(pg_fetch_assoc($result)) : null;
+    }
+    
+    public function updateSequence($id){
+        $sql = "UPDATE sequencia SET descricao = '{$this->description}', ordem = {$this->order}, observacao = '{$this->note}'
+            WHERE id = {$this->id}";
+        Database::executeOnlySQL($sql);
+    }
+
+    public static function getRoadmapIdFromSequence($id){
+        $sql = "SELECT roteiro_id AS roadmapid FROM sequencia
+                    WHERE id = {$id}";
+        $result = Database::getResultFromQuery($sql);
+        $class = get_called_class();
+        return $result ? new $class(pg_fetch_assoc($result)) : null;
+    }
+
+    public static function getEventIdFromSequence($id){
+        $sql = "SELECT evento_id AS eventid FROM sequencia
+                    INNER JOIN roteiro ON roteiro.id = roteiro_id
+                    WHERE sequencia.id = {$id}";
+        $result = Database::getResultFromQuery($sql);
+        $class = get_called_class();
+        return $result ? new $class(pg_fetch_assoc($result)) : null;
+    }
+
+    public static function deleteSequenceById($id) {
+        $sql = "DELETE FROM sequencia
+            WHERE id = {$id}";
+        Database::executeSQL($sql);
+    }
 }

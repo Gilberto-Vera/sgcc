@@ -28,6 +28,8 @@ Class Roadmap extends Model{
             $errors['name'] = 'Insira uma descrição...';
         }elseif(!validateName($this->name)){
             $errors['name'] = 'Nome inválido...';
+        }else{
+            $this->name = validateName($this->name);
         }
 
         if($this->hour == ''){
@@ -48,10 +50,11 @@ Class Roadmap extends Model{
 
         if(!$this->name){
             $errors['name'] = 'Insira um nome...';
+        }elseif(!validateName($this->name)){
+            $errors['name'] = 'Nome inválido...';
+        }else{
+            $this->name = validateName($this->name);
         }
-        // elseif(!validateName($this->name)){
-        //     $errors['name'] = 'Nome inválido...';
-        // }
 
         if($this->hour == ''){
             $errors['hour'] = 'Selecione a hora...';

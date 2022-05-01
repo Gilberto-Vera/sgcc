@@ -72,9 +72,9 @@
 // echo "Horário:" . date("H:i:s") . "<br>";
 // echo "Horário" . date("h:i:sa") . "<br>";
 
+$test = Sequence::getNextOrder(1);
 
-$sql = "UPDATE roteiro SET nome = 'Recepção', hora = 17, minuto = 30 WHERE id = 8";
-Database::executeOnlySQL($sql);
+print_r($test->next);
 
 echo ('<br>');
 echo ('Fim!');
