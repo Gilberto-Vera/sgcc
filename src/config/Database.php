@@ -24,11 +24,11 @@ class Database {
 
     public static function executeSQL($sql){
         $conn = self::getConnection();
-        $id = pg_query($conn, $sql);
-        if(pg_last_error($conn)) {
+        $result = pg_query($conn, $sql);
+        if(!$result) {
             throw new Exception(pg_last_error($conn));
         }
-        $row = pg_fetch_row($id);
+        $row = pg_fetch_row($result);
         pg_close($conn);
         return $row;
     }

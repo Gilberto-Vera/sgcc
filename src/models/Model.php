@@ -523,9 +523,28 @@ Class Model{
         return $result ? new $class(pg_fetch_assoc($result)) : null;
     }
 
-    public static function deleteSequenceById($id) {
+    public static function getLastOrder($id){
+        $sql = "SELECT ordem AS next FROM sequencia
+                    WHERE roteiro_id = {$id}
+                    ORDER BY ordem DESC
+                    LIMIT 1";
+        $result = Database::executeSQL($sql);
+        return $result;
+    }
+
+    public static function deleteSequenceById($id, $roadmapId) {
+        $result = null;
         $sql = "DELETE FROM sequencia
-            WHERE id = {$id}";
-        Database::executeSQL($sql);
+            WHERE id = {$id}
+            RETURNING ordem";
+        $result = Database::executeSQL($sql);
+        $lastSequence = Model::getLastOrder($roadmapId);
+        while($result[0] <= $lastSequence[0]){
+            $sql = "UPDATE sequencia
+                SET ordem = {$result[0]}";
+                $result[0]++;
+                $sql .= " WHERE roteiro_id = {$roadmapId} AND ordem = {$result[0]}";
+            Database::executeSQL($sql);
+        }
     }
 }

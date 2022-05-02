@@ -72,9 +72,9 @@
 // echo "Horário:" . date("H:i:s") . "<br>";
 // echo "Horário" . date("h:i:sa") . "<br>";
 
-$test = Sequence::getNextOrder(1);
+$test = false;
 
-print_r($test->next);
+echo $test ? 'true' : 'false';
 
 echo ('<br>');
 echo ('Fim!');
