@@ -443,6 +443,19 @@ Class Model{
         }
         return $objects;
     }
+
+    public static function getRoadmapsModel($id){
+        $objects = [];
+        $sql = "SELECT id, nome AS name, hora AS hour, minuto AS minute FROM modelo_roteiro";
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            while ($row = pg_fetch_assoc($result)) {
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
+    }
     
     public function insertRoadmap(){
         $sql = "INSERT INTO roteiro (id, evento_id, nome, hora, minuto)
@@ -547,4 +560,69 @@ Class Model{
             Database::executeSQL($sql);
         }
     }
+    
+    public function insertRoadmapModelById($id){
+        $result = null;
+        $sql = "INSERT INTO modelo_roteiro (nome, hora, minuto)
+                    SELECT nome, hora, minuto FROM roteiro
+                    WHERE roteiro.id = {$id}
+                    RETURNING id";
+        $result = Database::executeSQL($sql);
+        return $result[0];
+    }
+
+    public function insertSequencesModel($sequence, $id){
+        $sql = "INSERT INTO modelo_sequencia (modelo_roteiro_id, descricao, ordem, observacao)
+                    VALUES ({$id}, '{$sequence->description}', {$sequence->order}, '{$sequence->note}')";
+        Database::executeSQL($sql);
+    }
+
+    public static function getSequencesModel($id){
+        $objects = [];
+        $sql = "SELECT id, ordem AS order, descricao AS description, observacao AS note FROM modelo_sequencia
+                    WHERE modelo_roteiro_id = {$id}";
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            while ($row = pg_fetch_assoc($result)) {
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
+    }
+
+    public static function deleteRoadmapModelById($id) {
+        $sql = "DELETE FROM modelo_roteiro
+            WHERE id = {$id}";
+        Database::executeSQL($sql);
+    }
+    
+    public function importRoadmapByModel($object, $eventid){
+        $result = null;
+        $sql = "INSERT INTO roteiro (evento_id, nome, hora, minuto)
+                    VALUES ({$eventid}, '{$object[0]->name}', {$object[0]->hour}, {$object[0]->minute})
+                    RETURNING id";
+        $result = Database::executeSQL($sql);
+        return $result[0];
+    }
+
+    public static function getRoadmapModel($id){
+        $objects = [];
+        $sql = "SELECT id, nome AS name, hora AS hour, minuto AS minute FROM modelo_roteiro
+                    WHERE id = {$id}";
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            $row = pg_fetch_assoc($result);
+            array_push($objects, new $class($row));
+        }
+        return $objects;
+    }
+
+    public function insertSequences($sequence, $id){
+        $sql = "INSERT INTO sequencia (roteiro_id, descricao, ordem, observacao)
+                    VALUES ({$id}, '{$sequence->description}', {$sequence->order}, '{$sequence->note}')";
+        Database::executeSQL($sql);
+    }
+
 }

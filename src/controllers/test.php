@@ -72,9 +72,14 @@
 // echo "Horário:" . date("H:i:s") . "<br>";
 // echo "Horário" . date("h:i:sa") . "<br>";
 
-$test = false;
+$id = 4;
+$test = Roadmap::insertRoadmapModelById($id);
 
-echo $test ? 'true' : 'false';
+var_dump ($test);
+echo ('<br>');
+print_r ($test);;
+echo ('<br>');
+echo $test;
 
 echo ('<br>');
 echo ('Fim!');

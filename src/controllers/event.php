@@ -6,7 +6,7 @@ $exception = null;
 if(isset($_GET['delete'])) {
     try {
         Event::deleteEventById($_GET['delete']);
-        addSuccessMsg('Usuário excluido com sucesso...');
+        addSuccessMsg('Evento excluido com sucesso...');
     } catch (Exception $e) {
         $exception = $e;
     }

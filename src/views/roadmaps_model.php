@@ -8,33 +8,25 @@
                 <div class="table-responsive">
                     <div class="card-body">
                         <div class="mb-0 card-title text-center">
-                            <h1 class="h4 text-gray-900 my-0">Lista de roteiros</h1>
+                            <h1 class="h4 text-gray-900 my-0">Lista de modelo de roteiros</h1>
                         </div>
                         <div class="container-fluid pt-1 pb-3 px-3">
                             <div class="row align-items-center">
                                 <div class="col pr-0">
-                                    <a href="event.php" class="btn btn-secondary btn-sm btn-user">
+                                    <a href="event_roadmap.php?event=<?= $eventId ?>" class="btn btn-secondary btn-sm btn-user">
                                         </i> Voltar </a>
-                                </div>
-                                <div class="col pr-0 text-center">
-                                    <a href="roadmap_model.php?event=<?= $event_id ?>" class="btn btn-primary btn-sm btn-user">
-                                         Visualizar Modelos </a></div>
-                                <div class="col pl-0 text-right">
-                                    <a href="manage_event_roadmap.php?event=<?= $event_id ?>" class="btn btn-primary btn-sm btn-user">
-                                        <i class="fas fa-fw fa-plus"></i> Cadastrar roteiro</a>
                                 </div>
                             </div>
                         </div>
                         <?php include(TEMPLATE_PATH . '/messages.php') ?>
                         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                             <thead>
-                                <tr class="text-center bg-secondary text-white">
+                                <tr class="text-center bg-light text-dark">
                                     <th>Nome</th>
                                     <th>Hora</th>
                                     <th>Sequência</th>
-                                    <th>Editar</th>
                                     <th>Remover</th>
-                                    <th>Salvar</th>
+                                    <th>Incluir</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,29 +37,24 @@
                                             <?= !$roadmap->minute ? $roadmap->hour . ':' . '00' : $roadmap->hour . ':' . $roadmap->minute ?></td>
                                         <td class="text-center py-0 align-middle">
                                             <a class="btn btn-primary btn-sm btn-block" 
-                                                href="event_sequence.php?roadmap=<?= $roadmap->id ?>&event=<?= $event_id ?>">
+                                                href="sequence_model.php?roadmap=<?= $roadmap->id ?>&event=<?= $eventId ?>">
                                                 Sequência</a>
                                         </td>
                                         <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-warning btn-sm rounded-circle" 
-                                                href="manage_event_roadmap.php?update=<?= $roadmap->id ?>&event=<?= $event_id ?>">
-                                                <i class="fas fa-fw fa-edit"></i></a>
-                                        </td>
-                                        <td class="text-center py-0 align-middle">
                                             <a class="btn btn-danger btn-sm rounded-circle" data-toggle="modal" 
-                                                data-target="#modal_del" data-id="<?= $roadmap->id ?>">
+                                                data-target="#modal_model_del" data-id="<?= $roadmap->id ?>" data-eventid="<?= $eventId ?>">
                                                 <i class="fas fa-fw fa-eraser"></i></a>
                                         </td>
                                         <td class="text-center py-0 align-middle">
                                             <a class="btn btn-primary btn-sm btn-block" data-toggle="modal"
-                                                data-target="#modal_export_model" data-roadmapid="<?= $roadmap->id ?>">Modelo</a>
+                                                data-target="#modal_import_model" data-roadmapid="<?= $roadmap->id ?>" data-eventid="<?= $eventId ?>">Modelo</a>
                                         </td>
                                     </tr>						
                                 <?php }; ?>
                             </tbody>
                         </table>
                     </div>
-                    <div class="modal fade" id="modal_del" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="modal_model_del" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -87,17 +74,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal fade" id="modal_export_model" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="modal_import_model" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Salvar como Modelo</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Incluir Roteiro</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                 </div>
                                 <div class="modal-body">
-                                    Deseja salvar este roteiro como modelo?
+                                    Deseja incluir este roteiro como modelo?
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal" 

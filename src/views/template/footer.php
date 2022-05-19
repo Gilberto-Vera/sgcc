@@ -23,6 +23,38 @@
                 });
             });
         </script>
+        
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#modal_model_del").on('show.bs.modal',function(event){
+                    let button  = $(event.relatedTarget);
+                    let id = button.data('id');
+                    let eventid = button.data('eventid');
+                    $('#remove').attr("href", '?delete=' + id + '&event=' + eventid);
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#modal_export_model").on('show.bs.modal',function(event){
+                    let button  = $(event.relatedTarget);
+                    let roadmapid = button.data('roadmapid');
+                    $('#save').attr("href", 'export_import_roadmap_model.php?roadmap=' + roadmapid);
+                });
+            });
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#modal_import_model").on('show.bs.modal',function(event){
+                    let button  = $(event.relatedTarget);
+                    let roadmapid = button.data('roadmapid');
+                    let eventid = button.data('eventid');
+                    $('#save').attr("href", 'export_import_roadmap_model.php?roadmap=' + roadmapid + '&event=' + eventid);
+                });
+            });
+        </script>
 
         <script src="vendor/datatables/jquery.dataTables.min.js"></script>
         <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>

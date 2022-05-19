@@ -147,8 +147,6 @@ CREATE TABLE IF NOT EXISTS "modelo_sequencia" (
       ON DELETE CASCADE)
 ;
 
-CREATE UNIQUE INDEX IF NOT EXISTS "ordem_UNIQUE1" ON "modelo_sequencia" ("ordem" ASC);
-
 -- -----------------------------------------------------
 -- Table "servico"
 -- -----------------------------------------------------
@@ -157,7 +155,6 @@ CREATE TABLE IF NOT EXISTS "servico" (
   "servico" VARCHAR(40) NOT NULL,
   PRIMARY KEY ("id"))
 ;
-
 
 -- -----------------------------------------------------
 -- Table "parceiro"

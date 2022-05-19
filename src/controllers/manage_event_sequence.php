@@ -14,7 +14,11 @@ if(count($_POST) === 0 && isset($_GET['update'])){
 }
 if(count($_POST) === 0 && isset($_GET['roadmap'])){
     $next = Sequence::getNextOrder($_GET['roadmap']);
-    $order = $next->next;
+    if(!$next->next){
+        $order = 1;
+    }else{
+        $order = $next->next;
+    }
 }elseif(count($_POST) > 0){
     try {
         $dbSequence = new Sequence($_POST);
@@ -26,6 +30,8 @@ if(count($_POST) === 0 && isset($_GET['roadmap'])){
         } else {
             $dbSequence->insert();
             addSuccessMsg('Sequência cadastrada com sucesso');
+            header("Location: event_sequence.php?roadmap={$roadmapId}&event={$eventId}");
+            exit();
         }
         $_POST = [];
     } catch (Exception $e) {

@@ -10,7 +10,7 @@ if(isset($_GET['delete'])) {
         $event = Roadmap::getEventIdFromRoadmap($_GET['delete']);
         $eventId = $event->getValues();
         Roadmap::deleteRoadmapById($_GET['delete']);
-        addSuccessMsg('Convidado excluido com sucesso...');
+        addSuccessMsg('Roteiro excluido com sucesso...');
         header("Location: event_roadmap.php?event={$eventId['id']}");
         exit();
     } catch (Exception $e) {
