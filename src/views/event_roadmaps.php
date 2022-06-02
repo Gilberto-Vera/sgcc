@@ -13,15 +13,15 @@
                         <div class="container-fluid pt-1 pb-3 px-3">
                             <div class="row align-items-center">
                                 <div class="col pr-0">
-                                    <a href="event.php" class="btn btn-secondary btn-sm btn-user">
-                                        </i> Voltar </a>
+                                    <a href="event.php" class="btn btn-light btn-sm btn-user">
+                                    <i class="fas fa-solid fa-angle-left text-success"></i> Voltar </a>
                                 </div>
                                 <div class="col pr-0 text-center">
-                                    <a href="roadmap_model.php?event=<?= $event_id ?>" class="btn btn-primary btn-sm btn-user">
-                                         Visualizar Modelos </a></div>
+                                    <a href="roadmap_model.php?event=<?= $event_id ?>" class="btn btn-light btn-sm btn-user">
+                                    <i class="fas fa-solid fa-th-list text-success"></i> Modelos de roteiro </a></div>
                                 <div class="col pl-0 text-right">
-                                    <a href="manage_event_roadmap.php?event=<?= $event_id ?>" class="btn btn-primary btn-sm btn-user">
-                                        <i class="fas fa-fw fa-plus"></i> Cadastrar roteiro</a>
+                                    <a href="manage_event_roadmap.php?event=<?= $event_id ?>" class="btn btn-light btn-sm btn-user">
+                                        <i class="fas fa-solid fa-plus text-success"></i> Cadastrar roteiro</a>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                                                 Sequência</a>
                                         </td>
                                         <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-warning btn-sm rounded-circle" 
+                                            <a class="btn btn-warning btn-sm rounded-circle text-dark" 
                                                 href="manage_event_roadmap.php?update=<?= $roadmap->id ?>&event=<?= $event_id ?>">
                                                 <i class="fas fa-fw fa-edit"></i></a>
                                         </td>

@@ -87,14 +87,14 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <!-- <a class="nav-link" href="#">
                         <i class="fas fa-fw fa-chart-area"></i>
-                        <span>Gráficos</span></a>
+                        <span>Gráficos</span></a> -->
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <!-- <a class="nav-link" href="#">
                         <i class="fas fa-fw fa-table"></i>
-                        <span>Tabelas</span></a>
+                        <span>Tabelas</span></a> -->
                 </li>
                 <hr class="sidebar-divider d-none d-md-block">
                 <div class="text-center d-none d-md-inline">

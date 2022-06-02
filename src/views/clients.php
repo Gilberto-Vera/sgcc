@@ -8,7 +8,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="mb-0 card-title text-center">
-                            <h1 class="h4 text-gray-900 my-2">Listar cliente</h1>
+                            <h1 class="h4 text-gray-900 my-2">Lista de Clientes</h1>
                         </div>
                         <?php include(TEMPLATE_PATH . '/messages.php') ?>
                         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">

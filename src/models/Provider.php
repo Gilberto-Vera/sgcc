@@ -149,4 +149,13 @@ Class Provider extends Model{
             throw new ValidationException($errors);
         }
     }
+
+    public function getProviderForPartner($id){
+        $objects = [];
+        $sql = "SELECT id AS provider_id, nome_fantasia AS business_name FROM fornecedor
+            WHERE fornecedor.id = {$id}";
+        $class = get_called_class();
+        $result = Database::getResultFromQuery($sql);
+        return $result ? new $class(pg_fetch_assoc($result)) : null;
+    }
 }

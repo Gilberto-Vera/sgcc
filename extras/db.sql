@@ -28,16 +28,32 @@ CREATE TABLE IF NOT EXISTS "cliente" (
 
 
 -- -----------------------------------------------------
+-- Table "situacao"
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS "situacao" (
+  "id" SERIAL NOT NULL,
+  "descricao" VARCHAR(45) NOT NULL,
+  PRIMARY KEY ("id"))
+;
+
+
+-- -----------------------------------------------------
 -- Table "evento"
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS "evento" (
   "id" SERIAL NOT NULL,
+  "situacao_id" INT NOT NULL,
   "nome" VARCHAR(45) NOT NULL,
   "data" TIMESTAMP NOT NULL,
   "num_convidados" INT NOT NULL,
   "observacao" TEXT NULL,
   "ativo" BOOLEAN NOT NULL,
-  PRIMARY KEY ("id"))
+  PRIMARY KEY ("id"),
+  CONSTRAINT "fk_evento_situacao"
+    FOREIGN KEY ("situacao_id")
+    REFERENCES "situacao" ("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ;
 
 
@@ -227,20 +243,6 @@ CREATE TABLE IF NOT EXISTS "servico_fornecedor" (
   CONSTRAINT "fk_servico_fornecedor_fornecedor"
     FOREIGN KEY ("fornecedor_id")
       REFERENCES "fornecedor" ("id"))
-;
-
-
--- -----------------------------------------------------
--- Table "situacao"
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS "situacao" (
-  "id" SERIAL NOT NULL,
-  "evento_id" INT NOT NULL,
-  "nome" VARCHAR(45) NOT NULL,
-  PRIMARY KEY ("id"),
-  CONSTRAINT "fk_situacao_evento"
-    FOREIGN KEY ("evento_id")
-      REFERENCES "evento" ("id"))
 ;
 
 
@@ -467,27 +469,27 @@ BEGIN
 
   END IF;
 
-  IF (SELECT COUNT(*) FROM evento) = 0 THEN
-    -- -----------------------------------------------------
-    -- Insert "evento"
-    -- -----------------------------------------------------
-    INSERT INTO evento (id, nome, data, num_convidados, observacao, ativo)
-      VALUES (default, 'Inicial', '2022-03-28 23:57:02', 100, '', TRUE),
-        (default, 'Teste2', '2022-04-21 18:00:00', 80, '', TRUE),
-        (default, 'Teste3', '2022-06-20 18:00:00', 110, '', TRUE)
-    ;
-  END IF;
-
   IF (SELECT COUNT(*) FROM situacao) = 0 THEN
     -- -----------------------------------------------------
     -- Insert "situacao"
     -- -----------------------------------------------------
-    INSERT INTO situacao (id, evento_id, nome)
-      VALUES (default, 1, 'Iniciado'),
-        (default, 1, 'Confirmado'),
-        (default, 1, 'Finalizado'),
-        (default, 1, 'Bloqueado'),
-        (default, 1, 'Cancelado')
+    INSERT INTO situacao (id, descricao)
+      VALUES (default, 'Iniciado'),
+        (default, 'Confirmado'),
+        (default, 'Finalizado'),
+        (default, 'Bloqueado'),
+        (default, 'Cancelado')
+    ;
+  END IF;
+
+  IF (SELECT COUNT(*) FROM evento) = 0 THEN
+    -- -----------------------------------------------------
+    -- Insert "evento"
+    -- -----------------------------------------------------
+    INSERT INTO evento (id, situacao_id, nome, data, num_convidados, observacao, ativo)
+      VALUES (default, 1, 'Inicial', '2022-03-28 23:57:02', 100, '', TRUE),
+        (default, 1, 'Teste2', '2022-04-21 18:00:00', 80, '', TRUE),
+        (default, 1, 'Teste3', '2022-06-20 18:00:00', 110, '', TRUE)
     ;
   END IF;
 
@@ -563,6 +565,29 @@ BEGIN
         (default, 9, 'Celular', 996637728, TRUE),
         (default, 10, 'Celular', 996320668, TRUE),
         (default, 11, 'Celular', 997532366, TRUE)
+    ;
+  END IF;
+
+  IF (SELECT COUNT(*) FROM parceiro) = 0 THEN
+    -- -----------------------------------------------------
+    -- Inserir "parceiro"
+    -- -----------------------------------------------------
+    INSERT INTO parceiro (id, evento_id, fornecedor_id, servico_id, num_colaboradores, situacao)
+      VALUES (default, 1, 1, 1, 3, TRUE),
+        (default, 1, 2, 2, 4, FALSE),
+        (default, 1, 10, 3, 1, TRUE),
+        (default, 1, 6, 6, 1, TRUE),
+        (default, 1, 7, 7, 1, TRUE),
+        (default, 2, 1, 1, 3, TRUE),
+        (default, 2, 2, 2, 3, FALSE),
+        (default, 2, 10, 3, 2, FALSE),
+        (default, 2, 6, 6, 1, TRUE),
+        (default, 2, 7, 7, 1, TRUE),
+        (default, 3, 1, 1, 3, TRUE),
+        (default, 3, 9, 2, 5, FALSE),
+        (default, 3, 3, 3, 2, TRUE),
+        (default, 3, 1, 6, 1, TRUE),
+        (default, 3, 3, 7, 1, TRUE)
     ;
   END IF;
 

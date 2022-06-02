@@ -19,6 +19,7 @@ require_once(realpath(MODEL_PATH . '/Model.php'));
 require_once(realpath(MODEL_PATH . '/People.php'));
 require_once(realpath(MODEL_PATH . '/Client.php'));
 require_once(realpath(MODEL_PATH . '/Provider.php'));
+require_once(realpath(MODEL_PATH . '/Partner.php'));
 require_once(realpath(MODEL_PATH . '/User.php'));
 require_once(realpath(MODEL_PATH . '/Event.php'));
 require_once(realpath(MODEL_PATH . '/Guest.php'));
