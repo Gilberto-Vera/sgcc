@@ -13,6 +13,9 @@
         <!-- <script src="vendor/jquery-easing/jquery.easing.min.js"></script> -->
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="/js/sb-admin-2.min.js"></script>
+        <script src="/js/datepicker/bootstrap-datepicker.js"></script>
+        <script src="/js/datepicker/bootstrap-datepicker.min.js"></script>
+        <script src="/js/datepicker/bootstrap-datepicker.pt-BR.min.js"></script>
         
         <script type="text/javascript">
             $(document).ready(function(){
@@ -53,6 +56,14 @@
                     let eventid = button.data('eventid');
                     $('#save').attr("href", 'export_import_roadmap_model.php?roadmap=' + roadmapid + '&event=' + eventid);
                 });
+            });
+        </script>
+
+        <script type="text/javascript">
+            $('#date').datepicker({
+                format: "dd-mm-yyyy",
+                startDate: "today",
+                language: "pt-BR"
             });
         </script>
 

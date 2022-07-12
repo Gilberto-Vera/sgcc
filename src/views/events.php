@@ -15,38 +15,40 @@
                             <thead>
                                 <tr class="text-center ">
                                     <th class="align-middle bg-secondary text-white">Nome</th>
+                                    <th class="align-middle bg-secondary text-white">Cliente</th>
                                     <th class="align-middle bg-secondary text-white">Data</th>
-                                    <th class="align-middle bg-secondary text-white" colspan="3">Gerenciar</th>
+                                    <th class="align-middle bg-secondary text-white">Situação</th>
+                                    <th class="align-middle bg-secondary text-white" colspan="4">Gerenciar</th>
                                     <th class="align-middle bg-secondary text-white">Editar</th>
-                                    <th class="align-middle bg-secondary text-white">Remover</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach($events as $event) { ?>
                                     <tr>
-                                        <td class="align-middle"><?= $event->name ?></td>
+                                        <td class="text-center align-middle"><?= $event->name ?></td>
+                                        <td class="text-center align-middle"><?= $event->client ?></td>
                                         <td class="text-center align-middle"><?= formatDate($event->data) ?></td>
+                                        <td class="text-center align-middle"><?= $event->situation ?></td>
                                         <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-warning text-dark btn-sm btn-block" href="event_guest.php?event=<?= $event->id ?>">
+                                            <a class="btn btn-outline-warning text-dark btn-sm btn-block shadow-sm" href="event_guest.php?event=<?= $event->id ?>">
                                             Convidados</a>
                                         </td>
                                         <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-warning text-dark btn-sm btn-block" href="event_roadmap.php?event=<?= $event->id ?>">
+                                            <a class="btn btn-outline-warning text-dark btn-sm btn-block shadow-sm" href="event_roadmap.php?event=<?= $event->id ?>">
                                             Roteiro</a>
                                         </td>
                                         <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-warning text-dark btn-sm btn-block" href="event_partner.php?event=<?= $event->id ?>" >
+                                            <a class="btn btn-outline-warning text-dark btn-sm btn-block shadow-sm" href="event_partner.php?event=<?= $event->id ?>" >
                                             Parceiros</a>
                                         </td>
                                         <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-warning btn-sm rounded-circle text-dark" 
-                                                href="manage_event.php?update=<?= $guest->id ?>&event=<?= $event_id ?>">
-                                                <i class="fas fa-fw fa-edit"></i></a>
+                                            <a class="btn btn-outline-warning text-dark btn-sm btn-block shadow-sm" href="event_manager.php?event=<?= $event->id ?>" >
+                                            Responsável</a>
                                         </td>
                                         <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-danger btn-sm rounded-circle" href="#" data-toggle="modal" 
-                                                data-target="#modal_del" data-id="<?= $event->id ?>">
-                                                <i class="fas fa-fw fa-eraser"></i></a>
+                                            <a class="btn btn-outline-warning btn-sm btn-block text-dark shadow-sm" 
+                                                href="edit_event.php?event=<?=$event->id?>">
+                                                <i class="fas fa-fw fa-edit"></i></a>
                                         </td>
                                     </tr>						
                                 <?php }; ?>

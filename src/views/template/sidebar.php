@@ -62,7 +62,7 @@
                     <div id="collapsefour" class="collapse" aria-labelledby="headingfour"
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="#">Cadastro</a>
+                            <a class="collapse-item" href="create_event.php">Cadastro</a>
                             <a class="collapse-item" href="event.php">Lista</a>
                         </div>
                     </div>

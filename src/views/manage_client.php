@@ -14,10 +14,11 @@
                                 <?php include(TEMPLATE_PATH . '/messages.php') ?>
                                 <form class="user needs-validation" action="#" method="POST">
                                     <input type="hidden" name="id" value="<?= $id ?>">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control rounded-pill
+                                    <div class="form-group form-floating mb-3">
+                                        <input type="text" class="form-control
                                             <?= $errors['name'] ? 'is-invalid' : '' ?>" id="name"
                                             name="name" placeholder="Nome" value="<?= $name ?>">
+                                            <label for="name">Nome</label>
                                             <div class="invalid-feedback">
                                                 <?= $errors['name'] ?>
                                             </div>
@@ -78,10 +79,10 @@
                                     </div>
                                     <div class="row">
                                         <div class="col text-center">
-                                            <a href="client.php" class="btn btn-secondary btn-user">Listar Clientes</a>
+                                            <a href="client.php" class="btn btn-secondary">Voltar</a>
                                         </div>
                                         <div class="col text-center">
-                                            <button class="btn btn-primary btn-user" type="submit">Salvar</button>
+                                            <button class="btn btn-primary" type="submit">Salvar</button>
                                         </div>
                                     </div>
                                 </form>

@@ -126,4 +126,75 @@ Class User extends People{
             throw new ValidationException($errors);
         }
     }
+
+    public static function searchToIncludeEventUser($name){
+        $objects = [];
+        $sql = "SELECT usuario.id, nome AS name, email FROM pessoa
+            INNER JOIN usuario ON usuario.pessoa_id = pessoa.id
+            LEFT JOIN usuario_evento ON usuario_evento.usuario_id = usuario.id
+            WHERE nome ILIKE '%{$name}%'";
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            while ($row = pg_fetch_assoc($result)) {
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
+    }
+
+    public static function includeEventUser($id){
+        $objects = [];
+        $sql = "SELECT usuario.id, pessoa.nome AS name, pessoa.email FROM usuario
+        INNER JOIN pessoa ON usuario.pessoa_id = pessoa.id
+        WHERE usuario.id IN (SELECT usuario.id FROM usuario
+                                EXCEPT
+                                SELECT usuario_id FROM usuario_evento
+                                    WHERE evento_id = {$id})";
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            while ($row = pg_fetch_assoc($result)) {
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
+    }
+
+    public static function getEventUsers($id){
+        $objects = [];
+        $sql = "SELECT usuario.id, usuario_evento.id AS manager_id, nome AS name, descricao AS function FROM pessoa
+            INNER JOIN usuario ON usuario.pessoa_id = pessoa.id
+            INNER JOIN funcao ON funcao.id = usuario.funcao_id
+            INNER JOIN usuario_evento ON usuario_evento.usuario_id = usuario.id
+            WHERE evento_id = {$id}";
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            while ($row = pg_fetch_assoc($result)) {
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
+    }
+
+    public static function includeEventManager($userId, $eventId){
+        $sql = " INSERT INTO usuario_evento (id, usuario_id, evento_id)
+            VALUES (default, {$userId}, {$eventId})";
+        Database::executeSQL($sql);
+    }
+
+    public static function getNumUsersFromEvent($id){
+        $sql = "SELECT COUNT(*) FROM usuario_evento
+                    WHERE evento_id = {$id}";
+        $class = get_called_class();
+        $result = Database::getResultFromQuery($sql);
+        return $result ? new $class(pg_fetch_assoc($result)) : null;
+    }
+
+    public static function deleteEventManagerById($id) {
+        $sql = "DELETE FROM usuario_evento
+            WHERE id = {$id}";
+        Database::executeSQL($sql);
+    }
 }

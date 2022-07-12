@@ -138,4 +138,19 @@ Class Client extends People{
             throw new ValidationException($errors);
         }
     }
+
+    public static function searchToIncludeEvent($name){
+        $objects = [];
+        $sql = "SELECT cliente.id, nome AS name, email FROM pessoa
+            INNER JOIN cliente ON cliente.pessoa_id = pessoa.id
+            WHERE nome ILIKE '%{$name}%'";
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            while ($row = pg_fetch_assoc($result)) {
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
+    }
 }

@@ -7,16 +7,16 @@
                 </div>
                 <div class="table-responsive">
                     <div class="card-body">
-                        <div class="mb-0 card-title text-center">
+                        <div class="mb-3 card-title text-center">
                             <h1 class="h4 text-gray-900 my-0">Lista de convidados</h1>
                         </div>
-                        <div class="container-fluid pt-1 pb-3 px-3">
+                        <div class="container-fluid pt-1 pb-3 px-0">
                             <div class="row align-items-center">
-                                <div class="col pr-0">
-                                    <a href="event.php" class="btn btn-light btn-sm btn-user">
-                                    <i class="fas fa-solid fa-angle-left text-success"></i> Voltar </a>
+                                <div class="col-3 pr-0">
+                                    <a href="event.php" class="btn btn-primary">
+                                    <i class="fas fa-solid fa-angle-left"></i> Voltar </a>
                                 </div>
-                                <div class="col pr-0 text-center">
+                                <div class="col-6 px-0 text-center">
                                     <table class="table-bordered" id="" width="100%" cellspacing="0">
                                         <thead>
                                             <tr class="text-center bg-secondary text-white">
@@ -36,8 +36,8 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="col pl-0 text-right">
-                                    <a href="manage_event_guest.php?event=<?= $event_id ?>" class="btn btn-primary btn-sm btn-user">
+                                <div class="col-3 pl-0 text-right">
+                                    <a href="manage_event_guest.php?event=<?= $event_id ?>" class="btn btn-primary">
                                         <i class="fas fa-fw fa-plus"></i> Cadastrar convidado</a>
                                 </div>
                             </div>

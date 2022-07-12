@@ -72,14 +72,15 @@
 // echo "Horário:" . date("H:i:s") . "<br>";
 // echo "Horário" . date("h:i:sa") . "<br>";
 
-$id = 4;
-$test = Roadmap::insertRoadmapModelById($id);
+$test = null;
 
-var_dump ($test);
+$test = formatDateTime('23-07-2022');
+
+// var_dump ($test);
 echo ('<br>');
-print_r ($test);;
-echo ('<br>');
-echo $test;
+print_r ($test);
+// echo ('<br>');
+// echo $test;
 
 echo ('<br>');
 echo ('Fim!');

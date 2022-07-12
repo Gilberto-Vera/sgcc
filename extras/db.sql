@@ -331,7 +331,8 @@ CREATE TABLE IF NOT EXISTS "usuario_evento" (
   PRIMARY KEY ("id"),
   CONSTRAINT "fk_usuario_evento_usuario"
     FOREIGN KEY ("usuario_id")
-      REFERENCES "usuario" ("id"),
+      REFERENCES "usuario" ("id")
+      ON DELETE CASCADE,
   CONSTRAINT "fk_usuario_evento_evento"
     FOREIGN KEY ("evento_id")
       REFERENCES "evento" ("id"))
@@ -490,6 +491,28 @@ BEGIN
       VALUES (default, 1, 'Inicial', '2022-03-28 23:57:02', 100, '', TRUE),
         (default, 1, 'Teste2', '2022-04-21 18:00:00', 80, '', TRUE),
         (default, 1, 'Teste3', '2022-06-20 18:00:00', 110, '', TRUE)
+    ;
+  END IF;
+
+  IF (SELECT COUNT(*) FROM cliente_evento) = 0 THEN
+    -- -----------------------------------------------------
+    -- Insert "cliente_evento"
+    -- -----------------------------------------------------
+    INSERT INTO cliente_evento (id, cliente_id, evento_id)
+      VALUES (default, 16, 1),
+        (default, 17, 2),
+        (default, 18, 3)
+    ;
+  END IF;
+
+  IF (SELECT COUNT(*) FROM usuario_evento) = 0 THEN
+    -- -----------------------------------------------------
+    -- Insert "usuario_evento"
+    -- -----------------------------------------------------
+    INSERT INTO usuario_evento (id, usuario_id, evento_id)
+      VALUES (default, 2, 1),
+        (default, 3, 2),
+        (default, 4, 3)
     ;
   END IF;
 
@@ -883,6 +906,37 @@ BEGIN
         (default, 6, 'Descrição 5', 4, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis. Suspendisse egestas arcu eu nulla fermentum molestie. Vestibulum eleifend lorem eget mattis fringilla. Integer et sapien facilisis, convallis purus rhoncus, viverra nibh.'),
         (default, 6, 'Descrição 6', 5, 'Donec quis auctor arcu. Aenean bibendum congue erat, quis tempor nibh ultricies sed.'),
         (default, 6, 'Descrição 7', 6, 'Nunc porttitor, ligula ac dictum tempus, est ante volutpat risus, et sollicitudin leo ipsum vel magna.')
+    ;
+  END IF;
+
+  IF (SELECT COUNT(*) FROM modelo_roteiro) = 0 THEN
+    -- -----------------------------------------------------
+    -- Insert "modelo_roteiro"
+    -- -----------------------------------------------------
+    INSERT INTO modelo_roteiro (id, nome, hora, minuto)
+      VALUES (default, 'Modelo Cerimônia', 17, 30),
+        (default, 'Modelo Recepção', 19, 30)
+    ;
+  END IF;
+
+  IF (SELECT COUNT(*) FROM modelo_sequencia) = 0 THEN
+    -- -----------------------------------------------------
+    -- Insert "modelo_sequencia"
+    -- -----------------------------------------------------
+    INSERT INTO modelo_sequencia (id, modelo_roteiro_id, descricao, ordem, observacao)
+      VALUES (default, 1, 'Descrição 1', 1, 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'),
+        (default, 1, 'Descrição 2', 2, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis.'),
+        (default, 1, 'Descrição 3', 3, 'Aenean congue arcu turpis, non tincidunt diam hendrerit quis.'),
+        (default, 1, 'Descrição 4', 4, 'Sed a consequat elit. Nullam risus magna, euismod a dignissim nec, vehicula quis dui.'),
+        (default, 1, 'Descrição 5', 5, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis. Suspendisse egestas arcu eu nulla fermentum molestie. Vestibulum eleifend lorem eget mattis fringilla. Integer et sapien facilisis, convallis purus rhoncus, viverra nibh.'),
+        (default, 1, 'Descrição 6', 6, 'Donec quis auctor arcu. Aenean bibendum congue erat, quis tempor nibh ultricies sed.'),
+        (default, 1, 'Descrição 7', 7, 'Nunc porttitor, ligula ac dictum tempus, est ante volutpat risus, et sollicitudin leo ipsum vel magna.'),
+        (default, 2, 'Descrição 2', 1, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis.'),
+        (default, 2, 'Descrição 3', 2, 'Aenean congue arcu turpis, non tincidunt diam hendrerit quis.'),
+        (default, 2, 'Descrição 4', 3, 'Sed a consequat elit. Nullam risus magna, euismod a dignissim nec, vehicula quis dui.'),
+        (default, 2, 'Descrição 5', 4, 'Donec ut ex mattis est feugiat fringilla nec bibendum turpis. Suspendisse egestas arcu eu nulla fermentum molestie. Vestibulum eleifend lorem eget mattis fringilla. Integer et sapien facilisis, convallis purus rhoncus, viverra nibh.'),
+        (default, 2, 'Descrição 6', 5, 'Donec quis auctor arcu. Aenean bibendum congue erat, quis tempor nibh ultricies sed.'),
+        (default, 2, 'Descrição 7', 6, 'Nunc porttitor, ligula ac dictum tempus, est ante volutpat risus, et sollicitudin leo ipsum vel magna.')
     ;
   END IF;
 

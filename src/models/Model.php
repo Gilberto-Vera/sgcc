@@ -87,7 +87,6 @@ Class Model{
     }
 
     public function getClient($id){
-        $objects = [];
         $sql = "SELECT pessoa.id, nome AS name, cpf, telefone AS phone, endereco AS address, email FROM pessoa
         INNER JOIN telefone_pessoa ON telefone_pessoa.pessoa_id = pessoa.id
         INNER JOIN cliente ON cliente.pessoa_id = pessoa.id
@@ -244,7 +243,6 @@ Class Model{
     }
 
     public function getUser($id){
-        $objects = [];
         $sql = "SELECT pessoa.id, nome AS name, email, telefone AS phone, funcao_id AS role FROM pessoa
         INNER JOIN telefone_pessoa ON telefone_pessoa.pessoa_id = pessoa.id
         INNER JOIN usuario ON usuario.pessoa_id = pessoa.id
@@ -305,7 +303,6 @@ Class Model{
     }
 
     public function getEvent(){
-        $objects = [];
         $sql = "SELECT evento.id, nome, data, num_convidados FROM evento
         WHERE evento.ativo = TRUE";
         $class = get_called_class();
@@ -313,11 +310,13 @@ Class Model{
         return $result ? new $class(pg_fetch_assoc($result)) : null;
     }
 
-    //TODO: adicionar outros componentes do evento
     public static function getEvents(){
         $objects = [];
-        $sql = "SELECT evento.id, evento.nome AS name, data
-                    FROM evento";
+        $sql = "SELECT evento.id, evento.nome AS name, descricao AS situation, pessoa.nome AS client, data FROM evento
+                    INNER JOIN situacao ON situacao.id = evento.situacao_id
+                    INNER JOIN cliente_evento ON cliente_evento.evento_id = evento.id
+                    INNER JOIN cliente ON cliente.id = cliente_evento.cliente_id
+                    INNER JOIN pessoa ON pessoa.id = cliente.pessoa_id";
         $result = Database::getResultFromQuery($sql);
         if($result){
             $class = get_called_class();
@@ -382,24 +381,8 @@ Class Model{
         }
         return $objects;
     }
-    
-    public function insertGuest(){
-        $sql = "INSERT INTO convidado (id, nome, num_acompanhantes, email)
-            VALUES (default, '{$this->name}', '{$this->num_accompany}', '{$this->email}') RETURNING id";
-        $id = Database::executeSQL($sql);
-        $this->id = $id[0];
-        
-        $sql = "INSERT INTO convidado_evento (id, evento_id, convidado_id, situacao)
-            VALUES (default, {$this->event_id}, {$this->id}, {$this->confirm})";
-        Database::executeSQL($sql);
-        
-        $sql = "INSERT INTO telefone_convidado (id, convidado_id, telefone, principal)
-            VALUES (default, {$this->id}, {$this->phone}, TRUE)";
-        Database::executeSQL($sql);
-    }
 
     public static function getGuest($id){
-        $objects = [];
         $sql = "SELECT convidado.id, convidado.nome AS name, num_acompanhantes AS num_accompany, 
                     email, telefone AS phone, situacao AS confirm FROM convidado
                     INNER JOIN telefone_convidado ON telefone_convidado.convidado_id = convidado.id

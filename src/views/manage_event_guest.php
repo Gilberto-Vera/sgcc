@@ -49,23 +49,18 @@
                                                 <?= $errors['num_accompany'] ?>
                                             </div>
                                         </div>
-                                        <div class="col-2 pt-3 text-right">
-                                            Confirmar presença?
-                                        </div>
-                                        <div class="col-1 pt-3 form-check text-center">
-                                            <input type="radio" class="form-check-input
-                                                <?= $errors['confirm'] ? 'is-invalid' : '' ?>" id="radio1" name="confirm" value="t"
-                                                <?= $confirm == 't' ? 'checked' : '' ?>>
-                                            <label for="radio1">Sim</label>
-                                            <div class="invalid-feedback">
-                                                <?= $errors['confirm'] ?>
+                                        <div class="col-4">
+                                            <div class="search-btn btn-group btn-group-toggle btn-block
+                                                <?= $errors['confirm'] ? 'is-invalid' : '' ?>" data-toggle="buttons">
+                                                <label class="btn btn-outline-success pt-3">
+                                                    <input type="radio" name="confirm" id="radio1" value="t"
+                                                    <?= $confirm == 't' ? 'checked' : '' ?>> Confirmado
+                                                </label>
+                                                <label class="btn btn-outline-danger pt-3">
+                                                    <input type="radio" name="confirm" id="radio2" value="f"
+                                                    <?= $confirm == 'f' ? 'checked' : '' ?>> Não confirmado
+                                                </label>
                                             </div>
-                                        </div>
-                                        <div class="col-1 pt-3 form-check text-left">
-                                            <input type="radio" class="form-check-input
-                                                <?= $errors['confirm'] ? 'is-invalid' : '' ?>" id="radio2" name="confirm" value="f"
-                                                <?= $confirm == 'f' ? 'checked' : '' ?>>
-                                            <label for="radio2">Não</label>
                                             <div class="invalid-feedback">
                                                 <?= $errors['confirm'] ?>
                                             </div>
@@ -73,7 +68,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col text-center">
-                                            <a href="event_guest.php?event=<?= $event_id ?>" class="btn btn-secondary btn-user">Listar convidados</a>
+                                            <a href="event_guest.php?event=<?= $event_id ?>" class="btn btn-secondary btn-user">Voltar</a>
                                         </div>
                                         <div class="col text-center">
                                             <button class="btn btn-primary btn-user" type="submit">Salvar</button>

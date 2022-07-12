@@ -12,6 +12,19 @@
         <link rel="stylesheet" href="css/sb-admin-2.min.css">
         <link rel="stylesheet" href="css/template.css">
         <link rel="stylesheet" href="vendor/datatables/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="css/bootstrap-datepicker3.css">
+        <link rel="stylesheet" href="css/bootstrap-datepicker3.css.map">
+        <link rel="stylesheet" href="css/bootstrap-datepicker3.min.css">
+        <link rel="stylesheet" href="css/bootstrap-datepicker3.standalone.css">
+        <link rel="stylesheet" href="css/bootstrap-datepicker3.standalone.css.map">
+        <link rel="stylesheet" href="css/bootstrap-datepicker3.standalone.min.css">
+        <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="css/bootstrap-datepicker.css.map">
+        <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
+        <link rel="stylesheet" href="css/bootstrap-datepicker.standalone.css">
+        <link rel="stylesheet" href="css/bootstrap-datepicker.standalone.css.map">
+        <link rel="stylesheet" href="css/bootstrap-datepicker.standalone.min.css">
+        
     </head>
 
     <body>

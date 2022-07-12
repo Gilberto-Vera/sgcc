@@ -12,7 +12,7 @@ Class Guest extends Model{
     
     public function insert() {
         $this->validate();
-        return parent::insertGuest();
+        return $this->insertGuest();
     }
     
     public function update() {
@@ -50,12 +50,10 @@ Class Guest extends Model{
             $errors['num_accompany'] = 'Insira a quantidade de acompanhantes...';
         }elseif(!is_numeric($this->num_accompany)){
             $errors['num_accompany'] = 'Insira apenas números...';
-        }else{
-            $this->num_accompany = validateName($this->num_accompany);
         }
 
         if(!$this->confirm){
-            $errors['confirm'] = 'Selecione...';
+            $errors['confirm'] = 'Selecione uma opção...';
         }elseif ($this->confirm == 'f'){
             $this->confirm = 'FALSE';
         }elseif ($this->confirm == 't'){
@@ -89,8 +87,6 @@ Class Guest extends Model{
             $errors['num_accompany'] = 'Insira a quantidade de acompanhantes...';
         }elseif(!is_numeric($this->num_accompany)){
             $errors['num_accompany'] = 'Insira apenas números...';
-        }else{
-            $this->num_accompany = validateName($this->num_accompany);
         }
 
         if ($this->confirm == 'f'){
@@ -102,5 +98,20 @@ Class Guest extends Model{
         if(count($errors) > 0){
             throw new ValidationException($errors);
         }
+    }
+    
+    public function insertGuest(){
+        $sql = "INSERT INTO convidado (id, nome, num_acompanhantes, email)
+            VALUES (default, '{$this->name}', {$this->num_accompany}, '{$this->email}') RETURNING id";
+        $id = Database::executeSQL($sql);
+        $this->id = $id[0];
+        
+        $sql = "INSERT INTO convidado_evento (id, evento_id, convidado_id, situacao)
+            VALUES (default, {$this->event_id}, {$this->id}, {$this->confirm})";
+        Database::executeSQL($sql);
+        
+        $sql = "INSERT INTO telefone_convidado (id, convidado_id, telefone, principal)
+            VALUES (default, {$this->id}, {$this->phone}, TRUE)";
+        Database::executeSQL($sql);
     }
 }

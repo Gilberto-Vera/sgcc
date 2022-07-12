@@ -158,4 +158,20 @@ Class Provider extends Model{
         $result = Database::getResultFromQuery($sql);
         return $result ? new $class(pg_fetch_assoc($result)) : null;
     }
+
+    public static function searchToIncludeEvent($name){
+        $objects = [];
+        $sql = "SELECT fornecedor.id, nome_fantasia AS business_name, servico.id AS service_id FROM fornecedor
+            INNER JOIN servico_fornecedor ON servico_fornecedor.fornecedor_id = fornecedor.id
+            INNER JOIN servico ON servico.id = servico_fornecedor.servico_id
+            WHERE servico.servico = 'Recepção' AND nome_fantasia ILIKE '%{$name}%'";
+        $result = Database::getResultFromQuery($sql);
+        if($result){
+            $class = get_called_class();
+            while ($row = pg_fetch_assoc($result)) {
+                array_push($objects, new $class($row));
+            }
+        }
+        return $objects;
+    }
 }

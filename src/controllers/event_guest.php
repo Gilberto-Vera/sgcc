@@ -18,8 +18,8 @@ if(isset($_GET['delete'])) {
     }
 }
 
-$guests = Guest::getGuests($_GET['event']);
-$guestsTotal = Guest::guestsTotal($_GET['event']);
+$guests = Guest::getGuests($event_id);
+$guestsTotal = Guest::guestsTotal($event_id);
 
 loadTemplateView('event_guests', [
     'event_id' => $event_id,
