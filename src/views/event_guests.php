@@ -14,7 +14,8 @@
                             <div class="row align-items-center">
                                 <div class="col-3 pr-0">
                                     <a href="event.php" class="btn btn-primary">
-                                    <i class="fas fa-solid fa-angle-left"></i> Voltar </a>
+                                    <!-- <i class="fas fa-solid fa-angle-left"></i>  -->
+                                    Voltar </a>
                                 </div>
                                 <div class="col-6 px-0 text-center">
                                     <table class="table-bordered" id="" width="100%" cellspacing="0">
@@ -38,7 +39,8 @@
                                 </div>
                                 <div class="col-3 pl-0 text-right">
                                     <a href="manage_event_guest.php?event=<?= $event_id ?>" class="btn btn-primary">
-                                        <i class="fas fa-fw fa-plus"></i> Cadastrar convidado</a>
+                                        <!-- <i class="fas fa-fw fa-plus"></i>  -->
+                                        Cadastrar convidado</a>
                                 </div>
                             </div>
                         </div>
@@ -57,19 +59,19 @@
                             <tbody>
                                 <?php foreach($guests as $guest) { ?>
                                     <tr>
-                                        <td class="align-middle"><?= $guest->name ?></td>
-                                        <td class="text-center align-middle"><?= $guest->phone ?></td>
-                                        <td class="text-center align-middle"><?= $guest->num_accompany ?></td>
-                                        <td class="text-center py-0 align-middle"><?= $guest->confirm == 't' ? 
+                                        <td class="align-middle py-2"><?= $guest->name ?></td>
+                                        <td class="text-center align-middle py-2"><?= $guest->phone ?></td>
+                                        <td class="text-center align-middle py-2"><?= $guest->num_accompany ?></td>
+                                        <td class="text-center py-2 align-middle"><?= $guest->confirm == 't' ? 
                                             '<i class="fas fa-fw fa-check align-middle confirm">' : 
                                             '<i class="fas fa-fw fa-times align-middle no_confirm">' ?></td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-warning btn-sm rounded-circle" 
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-warning btn-sm btn-block text-dark shadow-sm py-0 px-0" 
                                                 href="manage_event_guest.php?update=<?= $guest->id ?>&event=<?= $event_id ?>">
                                                 <i class="fas fa-fw fa-edit"></i></a>
                                         </td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-danger btn-sm rounded-circle" data-toggle="modal" 
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-danger btn-sm btn-block text-dark shadow-sm py-0 px-0" data-toggle="modal" 
                                                 data-target="#modal_del" data-id="<?= $guest->id ?>">
                                                 <i class="fas fa-fw fa-eraser"></i></a>
                                         </td>

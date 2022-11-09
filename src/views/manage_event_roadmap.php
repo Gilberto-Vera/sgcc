@@ -15,17 +15,18 @@
                                 <form class="user needs-validation" action="#" method="POST">
                                     <input type="hidden" name="id" value="<?= $id ?>">
                                     <input type="hidden" name="event_id" value="<?= $event_id ?>">
-                                    <div class="form-group row">
-                                        <div class="col-8 mb-3 mb-sm-0">
-                                            <input type="text" class="form-control rounded-pill
+                                    <div class="form-group row mb-2">
+                                        <div class="form-floating col-8 pl-0">
+                                            <input type="text" class="form-control
                                                 <?= $errors['name'] ? 'is-invalid' : '' ?>" id="name"
                                                 name="name" placeholder="Nome" value="<?= $name ?>">
+                                            <label for="name">Nome</label>
                                             <div class="invalid-feedback">
                                                 <?= $errors['name'] ?>
                                             </div>
                                         </div>
-                                        <div class="col-2">
-                                            <select class="form-control rounded-pill <?= $errors['hour'] ? 'is-invalid' : '' ?>"
+                                        <div class="form-floating col-2 pl-0">
+                                            <select class="form-control <?= $errors['hour'] ? 'is-invalid' : '' ?>"
                                                 name="hour">
                                                 <option value="">Hora</option>
                                                 <?php
@@ -39,10 +40,11 @@
                                                     }
                                                 ?>
                                             </select>
+                                            <label for="name">Hora</label>
                                             <div class="invalid-feedback"><?= $errors['hour'] ?></div>
                                         </div>
-                                        <div class="col-2">
-                                            <select class="form-control rounded-pill <?= $errors['minute'] ? 'is-invalid' : '' ?>"
+                                        <div class="form-floating col-2 pl-0">
+                                            <select class="form-control <?= $errors['minute'] ? 'is-invalid' : '' ?>"
                                                 name="minute">
                                                 <option value="">Minuto</option>
                                                 <?php
@@ -56,15 +58,16 @@
                                                     }
                                                 ?>
                                             </select>
+                                            <label for="name">Minuto</label>
                                             <div class="invalid-feedback"><?= $errors['minute'] ?></div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col text-center">
-                                            <a href="event_roadmap.php?event=<?= $event_id ?>" class="btn btn-secondary btn-user">Voltar</a>
+                                            <a href="event_roadmap.php?event=<?= $event_id ?>" class="btn btn-primary">Voltar</a>
                                         </div>
                                         <div class="col text-center">
-                                            <button class="btn btn-primary btn-user" type="submit">Salvar</button>
+                                            <button class="btn btn-success" type="submit">Salvar</button>
                                         </div>
                                     </div>
                                 </form>

@@ -46,10 +46,10 @@
                                         </div>
                                         <div class="row">
                                             <div class="col text-center">
-                                                <a href="event.php" class="btn btn-secondary">Voltar</a>
+                                                <a href="event.php" class="btn btn-primary">Voltar</a>
                                             </div>
                                             <div class="col text-center">
-                                                <button class="btn btn-primary" type="submit">Salvar</button>
+                                                <button class="btn btn-success" type="submit">Salvar</button>
                                             </div>
                                         </div>
                                     </div>

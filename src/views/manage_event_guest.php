@@ -15,36 +15,40 @@
                                 <form class="user needs-validation" action="#" method="POST">
                                     <input type="hidden" name="id" value="<?= $id ?>">
                                     <input type="hidden" name="event_id" value="<?= $event_id ?>">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control rounded-pill
+                                    <div class="form-group form-floating">
+                                        <input type="text" class="form-control
                                             <?= $errors['name'] ? 'is-invalid' : '' ?>" id="name"
                                             name="name" placeholder="Nome" value="<?= $name ?>">
+                                        <label for="providerName">Nome</label>
                                         <div class="invalid-feedback">
                                             <?= $errors['name'] ?>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control rounded-pill
+                                    <div class="form-group form-floating">
+                                        <input type="text" class="form-control
                                             <?= $errors['email'] ? 'is-invalid' : '' ?>" id="email"
                                             name="email" placeholder="Email" value="<?= $email ?>"
                                             <?= $disabledInput ? 'disabled' : ''?>>
+                                        <label for="providerName">Email</label>
                                         <div class="invalid-feedback">
                                             <?= $errors['email'] ?>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <div class="col-4 mb-3 mb-sm-0">
-                                            <input type="text" class="form-control rounded-pill
+                                    <div class="form-group row mb-3 ml-0">
+                                        <div class="form-floating col-4 pl-0">
+                                            <input type="text" class="form-control
                                                 <?= $errors['phone'] ? 'is-invalid' : '' ?>" id="phone"
                                                 name="phone" placeholder="Telefone" value="<?= $phone ?>">
+                                            <label for="providerName">Telefone</label>
                                             <div class="invalid-feedback">
                                                 <?= $errors['phone'] ?>
                                             </div>
                                         </div>
-                                        <div class="col-4 mb-3 mb-sm-0">
-                                            <input type="text" class="form-control rounded-pill
+                                        <div class="form-floating col-4 px-0">
+                                            <input type="text" class="form-control
                                                 <?= $errors['num_accompany'] ? 'is-invalid' : '' ?>" id="num_accompany"
                                                 name="num_accompany" placeholder="Números de acompanhantes" value="<?= $num_accompany ?>">
+                                            <label for="providerName">Número de acompanhantes</label>
                                             <div class="invalid-feedback">
                                                 <?= $errors['num_accompany'] ?>
                                             </div>
@@ -68,10 +72,10 @@
                                     </div>
                                     <div class="row">
                                         <div class="col text-center">
-                                            <a href="event_guest.php?event=<?= $event_id ?>" class="btn btn-secondary btn-user">Voltar</a>
+                                            <a href="event_guest.php?event=<?= $event_id ?>" class="btn btn-primary">Voltar</a>
                                         </div>
                                         <div class="col text-center">
-                                            <button class="btn btn-primary btn-user" type="submit">Salvar</button>
+                                            <button class="btn btn-success" type="submit">Salvar</button>
                                         </div>
                                     </div>
                                 </form>

@@ -25,24 +25,26 @@
                                 </div>
                                 <?php include(TEMPLATE_PATH . '/messages.php') ?>
                                 <form class="user needs-validation" action="#" method="POST">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control rounded-pill
+                                    <div class="form-group form-floating">
+                                        <input type="text" class="form-control
                                             <?= $errors['email'] ? 'is-invalid' : '' ?>"
                                             name="email" placeholder="Email" value="<?= $email ?>">
+                                        <label for="providerName">Email</label>
                                         <div class="text-left invalid-feedback">
                                             <?= $errors['email'] ?>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control rounded-pill
+                                    <div class="form-group form-floating">
+                                        <input type="password" class="form-control
                                             <?= $errors['senha'] ? 'is-invalid' : '' ?>"
                                             name="senha" placeholder="Senha">
+                                        <label for="providerName">Senha</label>
                                         <div class="text-left invalid-feedback">
                                                 <?= $errors['senha'] ?>
                                         </div>
                                     </div>
                                         <div class="form-group">
-                                            <button class="btn btn-primary btn-user btn-block" type="submit" id="login">Acessar</button>
+                                            <button class="btn btn-primary btn-block" type="submit" id="login">Acessar</button>
                                         </div>
                                 </form>
                             </div>
@@ -52,5 +54,4 @@
             </div>
         </div>
     </body>
-
 </html>

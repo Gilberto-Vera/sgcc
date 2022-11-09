@@ -50,7 +50,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-2 pl-1 pr-0 mb-3">
-                                                <button type="submit" class="search-btn btn btn-outline-primary btn-block"
+                                                <button type="submit" class="search-btn btn btn-outline-primary shadow-sm btn-block"
                                                     formaction="include_client_event.php">
                                                     Pesquisar cliente
                                                 </button>
@@ -77,7 +77,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-2 pl-1 pr-0 pb-3 mb-2">
-                                                <button type="submit" class="search-btn btn btn-outline-primary btn-block"
+                                                <button type="submit" class="search-btn btn btn-outline-primary shadow-sm btn-block"
                                                     formaction="include_place_event.php">
                                                     Pesquisar local
                                                 </button>
@@ -111,7 +111,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-2 pl-1 pr-0 pb-3 mb-2">
-                                                <button type="submit" class="search-btn btn btn-outline-primary btn-block"
+                                                <button type="submit" class="search-btn btn btn-outline-primary shadow-sm btn-block"
                                                     formaction="include_event_manager.php">
                                                     Pesquisar usuário
                                                 </button>
@@ -119,10 +119,10 @@
                                         </div>
                                         <div class="row">
                                             <div class="col text-center">
-                                                <a href="event.php" class="btn btn-secondary">Voltar</a>
+                                                <a href="event.php" class="btn btn-primary">Listar Eventos</a>
                                             </div>
                                             <div class="col text-center">
-                                                <button class="btn btn-primary" type="submit">Salvar</button>
+                                                <button class="btn btn-success" type="submit">Salvar</button>
                                             </div>
                                         </div>
                                     </div>

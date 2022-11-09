@@ -1,7 +1,7 @@
 <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Sistema de Gerenciamento para Cerimonial de Casamento 2021</span>
+                            <span>Copyright &copy; Sistema de Gerenciamento para Cerimonial de Casamento 2022</span>
                         </div>
                     </div>
                 </footer>
@@ -10,13 +10,43 @@
 
         
         <script src="vendor/jquery/jquery.min.js"></script>
-        <!-- <script src="vendor/jquery-easing/jquery.easing.min.js"></script> -->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
         <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="/js/sb-admin-2.min.js"></script>
         <script src="/js/datepicker/bootstrap-datepicker.js"></script>
         <script src="/js/datepicker/bootstrap-datepicker.min.js"></script>
         <script src="/js/datepicker/bootstrap-datepicker.pt-BR.min.js"></script>
-        
+        <script src="/js/circle-progress.min.js"></script>
+    
+        <script>
+            new CircleProgress('.progress-01', {
+                max: 100,
+                value: 20,
+                textFormat: 'percent',
+            });
+        </script>
+        <script>
+            new CircleProgress('.progress-01_1', {
+                max: 100,
+                value: 20,
+                textFormat: 'percent',
+            });
+        </script>
+        <script>
+            new CircleProgress('.progress-01_2', {
+                max: 100,
+                value: 40,
+                textFormat: 'percent',
+            });
+        </script>
+        <script>
+            new CircleProgress('.progress-01_3', {
+                max: 100,
+                value: 50,
+                textFormat: 'percent',
+            });
+        </script>
+
         <script type="text/javascript">
             $(document).ready(function(){
                 $("#modal_del").on('show.bs.modal',function(event){

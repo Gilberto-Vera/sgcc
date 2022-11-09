@@ -13,8 +13,9 @@
                         <div class="container-fluid pt-1 pb-3 px-3">
                             <div class="row align-items-center">
                                 <div class="col pr-0">
-                                    <a href="event_partner.php?event=<?= $eventId ?>" class="btn btn-light btn-sm btn-user">
-                                    <i class="fas fa-solid fa-angle-left text-success"></i> Voltar </a>
+                                    <a href="event_partner.php?event=<?= $eventId ?>" class="btn btn-primary">
+                                        <!-- <i class="fas fa-solid fa-angle-left text-success"></i> -->
+                                        Voltar </a>
                                 </div>
                                 <div class="col pr-0 text-center">
                                 </div>
@@ -32,10 +33,10 @@
                             <tbody>
                                 <?php foreach($includeEventPartners as $includeEventPartner) { ?>
                                     <tr>
-                                        <td class="align-middle"><?= $includeEventPartner->business_name ?></td>
-                                        <td class="text-center align-middle"><?= $includeEventPartner->service ?></td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-warning text-dark btn-sm btn-block" 
+                                        <td class="align-middle py-2"><?= $includeEventPartner->business_name ?></td>
+                                        <td class="text-center align-middle py-2"><?= $includeEventPartner->service ?></td>
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-warning btn-sm btn-block text-dark shadow-sm py-0 px-0" 
                                                 href="manage_event_partner.php?event=<?= $eventId ?>&partner=<?= $includeEventPartner->id ?>" >
                                             Incluir</a>
                                         </td>

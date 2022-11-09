@@ -13,14 +13,16 @@
                         <div class="container-fluid pt-1 pb-3 px-3">
                             <div class="row align-items-center">
                                 <div class="col pr-0">
-                                    <a href="event.php" class="btn btn-light btn-sm btn-user">
-                                    <i class="fas fa-solid fa-angle-left text-success"></i> Voltar </a>
+                                    <a href="event.php" class="btn btn-primary">
+                                        <!-- <i class="fas fa-solid fa-angle-left text-success"></i>  -->
+                                        Voltar </a>
                                 </div>
                                 <div class="col pr-0 text-center">
                                 </div>
                                 <div class="col pl-0 text-right">
-                                    <a href="include_event_partner.php?event=<?= $eventId ?>" class="btn btn-primary btn-sm btn-user">
-                                        <i class="fas fa-fw fa-plus"></i> Inclur parceiro</a>
+                                    <a href="include_event_partner.php?event=<?= $eventId ?>" class="btn btn-primary">
+                                        <!-- <i class="fas fa-fw fa-plus"></i> -->
+                                        Inclur parceiro</a>
                                 </div>
                             </div>
                         </div>
@@ -39,19 +41,19 @@
                             <tbody>
                                 <?php foreach($eventPartners as $eventPartner) { ?>
                                     <tr>
-                                        <td class="align-middle"><?= $eventPartner->business_name ?></td>
-                                        <td class="text-center align-middle"><?= $eventPartner->service ?></td>
-                                        <td class="text-center align-middle"><?= $eventPartner->num_collaborators ?></td>
-                                        <td class="text-center align-middle"><?= $eventPartner->situation == 't' ? 
+                                        <td class="align-middle py-2"><?= $eventPartner->business_name ?></td>
+                                        <td class="text-center align-middle py-2"><?= $eventPartner->service ?></td>
+                                        <td class="text-center align-middle py-2"><?= $eventPartner->num_collaborators ?></td>
+                                        <td class="text-center align-middle py-2"><?= $eventPartner->situation == 't' ? 
                                             '<i class="fas fa-fw fa-check align-middle confirm">' : 
                                             '<i class="fas fa-fw fa-times align-middle no_confirm">'?></td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-warning btn-sm rounded-circle" 
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-warning btn-sm btn-block text-dark shadow-sm py-0 px-0" 
                                                 href="manage_event_partner.php?update=<?= $eventPartner->id ?>&event=<?= $eventId ?>&provider=<?= $eventPartner->provider_id ?>">
                                                 <i class="fas fa-fw fa-edit"></i></a>
                                         </td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-danger btn-sm rounded-circle" data-toggle="modal" 
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-danger btn-sm btn-block text-dark shadow-sm py-0 px-0" data-toggle="modal" 
                                                 data-target="#modal_del" data-id="<?= $eventPartner->id ?>">
                                                 <i class="fas fa-fw fa-eraser"></i></a>
                                         </td>

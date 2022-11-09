@@ -14,8 +14,9 @@
                             <div class="row align-items-center">
                                 <div class="col pr-0">
                                     <a href="create_event.php?clientId=<?=$clientId?>&clientName=<?=$clientName?>&name=<?=$name?>&date=<?=$date?>&numGuests=<?=$numGuests?>&providerId=<?=$providerId?>&providerName=<?=$providerName?>&serviceId=<?=$serviceId?>&userName=<?=$userName?>&userId=<?=$userId?>&situation=<?=$situation?>"
-                                        class="btn btn-light btn-sm btn-user">
-                                    <i class="fas fa-solid fa-angle-left text-success"></i> Voltar </a>
+                                        class="btn btn-primary">
+                                        <!-- <i class="fas fa-solid fa-angle-left text-success"></i> -->
+                                        Voltar </a>
                                 </div>
                                 <div class="col pr-0 text-center">
                                 </div>
@@ -32,10 +33,10 @@
                             <tbody>
                                 <?php foreach($providers as $provider) { ?>
                                     <tr>
-                                        <td class="align-middle"><?= $provider->business_name ?></td>
-                                        <td class="text-center align-middle"><?= $provider->email ?></td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-warning text-dark btn-sm btn-block" 
+                                        <td class="align-middle py-2"><?= $provider->business_name ?></td>
+                                        <td class="text-center align-middle py-2"><?= $provider->email ?></td>
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-warning btn-sm btn-block text-dark shadow-sm py-0 px-0" 
                                                 href="create_event.php?clientId=<?=$clientId?>&clientName=<?=$clientName?>&name=<?=$name?>&date=<?=$date?>&numGuests=<?=$numGuests?>&providerId=<?=$provider->id?>&providerName=<?=$provider->business_name?>&serviceId=<?=$provider->service_id?>&userName=<?=$userName?>&userId=<?=$userId?>&situation=<?=$situation?>">
                                             Incluir</a>
                                         </td>

@@ -13,15 +13,19 @@
                         <div class="container-fluid pt-1 pb-3 px-3">
                             <div class="row align-items-center">
                                 <div class="col pr-0">
-                                    <a href="event.php" class="btn btn-light btn-sm btn-user">
-                                    <i class="fas fa-solid fa-angle-left text-success"></i> Voltar </a>
+                                    <a href="event.php" class="btn btn-primary">
+                                    <!-- <i class="fas fa-solid fa-angle-left text-success"></i> -->
+                                     Voltar </a>
                                 </div>
-                                <div class="col pr-0 text-center">
-                                    <a href="roadmap_model.php?event=<?= $event_id ?>" class="btn btn-light btn-sm btn-user">
-                                    <i class="fas fa-solid fa-th-list text-success"></i> Modelos de roteiro </a></div>
+                                <div class="col text-center">
+                                    <a href="roadmap_model.php?event=<?= $event_id ?>" class="btn btn-primary">
+                                    <!-- <i class="fas fa-solid fa-th-list text-success"></i> -->
+                                     Modelos de roteiro </a>
+                                </div>
                                 <div class="col pl-0 text-right">
-                                    <a href="manage_event_roadmap.php?event=<?= $event_id ?>" class="btn btn-light btn-sm btn-user">
-                                        <i class="fas fa-solid fa-plus text-success"></i> Cadastrar roteiro</a>
+                                    <a href="manage_event_roadmap.php?event=<?= $event_id ?>" class="btn btn-primary">
+                                        <!-- <i class="fas fa-solid fa-plus text-success"></i>  -->
+                                        Cadastrar roteiro</a>
                                 </div>
                             </div>
                         </div>
@@ -32,35 +36,35 @@
                                     <th>Nome</th>
                                     <th>Hora</th>
                                     <th>Sequência</th>
+                                    <th>Salvar</th>
                                     <th>Editar</th>
                                     <th>Remover</th>
-                                    <th>Salvar</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach($roadmaps as $roadmap) { ?>
                                     <tr>
-                                        <td class="align-middle"><?= $roadmap->name ?></td>
-                                        <td class="align-middle text-center">
+                                        <td class="align-middle py-2"><?= $roadmap->name ?></td>
+                                        <td class="align-middle text-center py-2">
                                             <?= !$roadmap->minute ? $roadmap->hour . ':' . '00' : $roadmap->hour . ':' . $roadmap->minute ?></td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-primary btn-sm btn-block" 
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-primary btn-sm btn-block shadow-sm py-0 px-0" 
                                                 href="event_sequence.php?roadmap=<?= $roadmap->id ?>&event=<?= $event_id ?>">
                                                 Sequência</a>
                                         </td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-warning btn-sm rounded-circle text-dark" 
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-primary btn-sm btn-block shadow-sm py-0 px-0" data-toggle="modal"
+                                                data-target="#modal_export_model" data-roadmapid="<?= $roadmap->id ?>">Modelo</a>
+                                        </td>
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-warning btn-sm btn-block text-dark shadow-sm py-0 px-0" 
                                                 href="manage_event_roadmap.php?update=<?= $roadmap->id ?>&event=<?= $event_id ?>">
                                                 <i class="fas fa-fw fa-edit"></i></a>
                                         </td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-danger btn-sm rounded-circle" data-toggle="modal" 
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-danger btn-sm btn-block text-dark shadow-sm py-0 px-0" data-toggle="modal" 
                                                 data-target="#modal_del" data-id="<?= $roadmap->id ?>">
                                                 <i class="fas fa-fw fa-eraser"></i></a>
-                                        </td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-primary btn-sm btn-block" data-toggle="modal"
-                                                data-target="#modal_export_model" data-roadmapid="<?= $roadmap->id ?>">Modelo</a>
                                         </td>
                                     </tr>						
                                 <?php }; ?>

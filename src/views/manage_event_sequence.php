@@ -17,33 +17,33 @@
                                     <input type="hidden" name="roadmapId" value="<?= $roadmapId ?>">
                                     <input type="hidden" name="eventId" value="<?= $eventId ?>">
                                     <input type="hidden" name="order" value="<?= $order ?>">
-                                    <div class="form-group row">
-                                        <div class="col-6 mb-3 mb-sm-0">
-                                            <input type="text" class="form-control rounded-pill
+                                    <div class="form-group row mb-3 ml-0">
+                                        <div class="form-floating col-6 px-0">
+                                            <input type="text" class="form-control
                                                 <?= $errors['description'] ? 'is-invalid' : '' ?>" id="description"
                                                 name="description" placeholder="Descrição" value="<?= $description ?>">
+                                            <label for="name">Descrição</label>
                                             <div class="invalid-feedback">
                                                 <?= $errors['description'] ?>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <div class="col">
-                                            <input type="text" class="form-control rounded-pill
-                                                <?= $errors['note'] ? 'is-invalid' : '' ?>" id="note"
-                                                name="note" placeholder="Observação" value="<?= $note ?>">
-                                            <div class="invalid-feedback">
-                                                <?= $errors['note'] ?>
-                                            </div>
+                                    <div class="form-group form-floating">
+                                        <input type="text" class="form-control
+                                            <?= $errors['note'] ? 'is-invalid' : '' ?>" id="note"
+                                            name="note" placeholder="Observação" value="<?= $note ?>">
+                                            <label for="name">Observação</label>
+                                        <div class="invalid-feedback">
+                                            <?= $errors['note'] ?>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col text-center">
                                             <a href="event_sequence.php?roadmap=<?= $roadmapId ?>&event=<?= $eventId ?>"
-                                                class="btn btn-secondary btn-user"> Voltar </a>
+                                                class="btn btn-primary"> Voltar </a>
                                         </div>
                                         <div class="col text-center">
-                                            <button class="btn btn-primary btn-user" type="submit">Salvar</button>
+                                            <button class="btn btn-success" type="submit">Salvar</button>
                                         </div>
                                     </div>
                                 </form>

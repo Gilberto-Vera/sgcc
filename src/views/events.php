@@ -13,40 +13,43 @@
                         <?php include(TEMPLATE_PATH . '/messages.php') ?>
                         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                             <thead>
-                                <tr class="text-center ">
-                                    <th class="align-middle bg-secondary text-white">Nome</th>
-                                    <th class="align-middle bg-secondary text-white">Cliente</th>
-                                    <th class="align-middle bg-secondary text-white">Data</th>
-                                    <th class="align-middle bg-secondary text-white">Situação</th>
-                                    <th class="align-middle bg-secondary text-white" colspan="4">Gerenciar</th>
-                                    <th class="align-middle bg-secondary text-white">Editar</th>
+                                <tr class="text-center bg-secondary text-white">
+                                    <th>Nome</th>
+                                    <th>Cliente</th>
+                                    <th>Data</th>
+                                    <th>Situação</th>
+                                    <th>Convidado</th>
+                                    <th>Roteiro</th>
+                                    <th>Parceiro</th>
+                                    <th>Responsável</th>
+                                    <th>Editar</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach($events as $event) { ?>
                                     <tr>
-                                        <td class="text-center align-middle"><?= $event->name ?></td>
-                                        <td class="text-center align-middle"><?= $event->client ?></td>
-                                        <td class="text-center align-middle"><?= formatDate($event->data) ?></td>
-                                        <td class="text-center align-middle"><?= $event->situation ?></td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-outline-warning text-dark btn-sm btn-block shadow-sm" href="event_guest.php?event=<?= $event->id ?>">
+                                        <td class="text-center align-middle py-2"><?= $event->name ?></td>
+                                        <td class="text-center align-middle py-2"><?= $event->client ?></td>
+                                        <td class="text-center align-middle py-2"><?= formatDate($event->data) ?></td>
+                                        <td class="text-center align-middle py-2"><?= $event->situation ?></td>
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-warning text-dark btn-sm btn-block shadow-sm py-0 px-0" href="event_guest.php?event=<?= $event->id ?>">
                                             Convidados</a>
                                         </td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-outline-warning text-dark btn-sm btn-block shadow-sm" href="event_roadmap.php?event=<?= $event->id ?>">
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-warning text-dark btn-sm btn-block shadow-sm py-0 px-0" href="event_roadmap.php?event=<?= $event->id ?>">
                                             Roteiro</a>
                                         </td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-outline-warning text-dark btn-sm btn-block shadow-sm" href="event_partner.php?event=<?= $event->id ?>" >
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-warning text-dark btn-sm btn-block shadow-sm py-0 px-0" href="event_partner.php?event=<?= $event->id ?>" >
                                             Parceiros</a>
                                         </td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-outline-warning text-dark btn-sm btn-block shadow-sm" href="event_manager.php?event=<?= $event->id ?>" >
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-warning text-dark btn-sm btn-block shadow-sm py-0 px-0" href="event_manager.php?event=<?= $event->id ?>" >
                                             Responsável</a>
                                         </td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-outline-warning btn-sm btn-block text-dark shadow-sm" 
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-warning btn-sm btn-block text-dark shadow-sm py-0 px-0" 
                                                 href="edit_event.php?event=<?=$event->id?>">
                                                 <i class="fas fa-fw fa-edit"></i></a>
                                         </td>

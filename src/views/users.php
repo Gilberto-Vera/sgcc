@@ -24,16 +24,17 @@
                             <tbody>
                                 <?php foreach($users as $user) { ?>
                                     <tr>
-                                        <td class="align-middle"><?= $user->nome ?></td>
-                                        <td class="text-center align-middle"><?= $user->telefone ?></td>
-                                        <td class="align-middle"><?= $user->email ?></td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-warning btn-sm rounded-circle" href="manage_user.php?update=<?= $user->id ?>">
+                                        <td class="align-middle py-2"><?= $user->nome ?></td>
+                                        <td class="text-center align-middle py-2"><?= $user->telefone ?></td>
+                                        <td class="align-middle py-2"><?= $user->email ?></td>
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-warning btn-sm btn-block text-dark shadow-sm py-0 px-0"
+                                            href="manage_user.php?update=<?= $user->id ?>">
                                             <i class="fas fa-fw fa-edit"></i></a>
                                         </td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-danger btn-sm rounded-circle" href="#" data-toggle="modal" 
-                                                data-target="#modal_del" data-id="<?= $user->id ?>">
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-danger btn-sm btn-block text-dark shadow-sm py-0 px-0"
+                                            href="#" data-toggle="modal" data-target="#modal_del" data-id="<?= $user->id ?>">
                                             <i class="fas fa-fw fa-eraser"></i></a>
                                         </td>
                                     </tr>						

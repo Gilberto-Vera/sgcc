@@ -14,72 +14,79 @@
                                 <?php include(TEMPLATE_PATH . '/messages.php') ?>
                                 <form class="user needs-validation" action="#" method="POST">
                                     <input type="hidden" name="id" value="<?= $id ?>">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control rounded-pill
+                                    <div class="form-group form-floating mb-3">
+                                        <input type="text" class="form-control
                                             <?= $errors['corporate_name'] ? 'is-invalid' : '' ?>"
                                             name="corporate_name" placeholder="Razão Social" value="<?= $corporate_name ?>">
-                                            <div class="invalid-feedback">
-                                                <?= $errors['corporate_name'] ?>
-                                            </div>
+                                        <label for="name">Razão Social</label>
+                                        <div class="invalid-feedback">
+                                            <?= $errors['corporate_name'] ?>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control rounded-pill
+                                    <div class="form-group form-floating mb-3">
+                                        <input type="text" class="form-control
                                             <?= $errors['business_name'] ? 'is-invalid' : '' ?>"
                                             name="business_name" placeholder="Nome Fantasia" value="<?= $business_name ?>">
-                                            <div class="invalid-feedback">
-                                                <?= $errors['business_name'] ?>
-                                            </div>
+                                        <label for="name">Nome Fantasia</label>
+                                        <div class="invalid-feedback">
+                                            <?= $errors['business_name'] ?>
+                                        </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" class="form-control rounded-pill
-                                            <?= $errors['cnpj'] ? 'is-invalid' : '' ?>"
+                                    <div class="form-group row mx-0">
+                                        <div class="form-floating col-6 mb-0 pl-0">
+                                            <input type="text" class="form-control
+                                                <?= $errors['cnpj'] ? 'is-invalid' : '' ?>"
                                                 name="cnpj" placeholder="CNPJ" value="<?= $cnpj ?>"
                                                 <?= $disabledInput ? 'disabled' : ''?>>
-                                                <div class="invalid-feedback">
-                                                    <?= $errors['cnpj'] ?>
-                                                </div>
+                                            <label for="name">CNPJ</label>
+                                            <div class="invalid-feedback">
+                                                <?= $errors['cnpj'] ?>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control rounded-pill
-                                            <?= $errors['phone'] ? 'is-invalid' : '' ?>"
+                                        <div class="form-floating col-6 mb-0 px-0">
+                                            <input type="text" class="form-control
+                                                <?= $errors['phone'] ? 'is-invalid' : '' ?>"
                                                 name="phone" placeholder="Telefone" value="<?= $phone ?>">
-                                                <div class="invalid-feedback">
-                                                    <?= $errors['phone'] ?>
-                                                </div>
+                                            <label for="name">Telefone</label>
+                                            <div class="invalid-feedback">
+                                                <?= $errors['phone'] ?>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control rounded-pill
-                                        <?= $errors['address'] ? 'is-invalid' : '' ?>"
+                                    <div class="form-group form-floating mb-3">
+                                        <input type="text" class="form-control
+                                            <?= $errors['address'] ? 'is-invalid' : '' ?>"
                                             name="address" placeholder="Endereço" value="<?= $address ?>">
-                                                <div class="invalid-feedback">
-                                                    <?= $errors['address'] ?>
-                                                </div>
+                                        <label for="name">Endereço</label>
+                                        <div class="invalid-feedback">
+                                            <?= $errors['address'] ?>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control rounded-pill
-                                        <?= $errors['email'] ? 'is-invalid' : '' ?>"
+                                    <div class="form-group form-floating mb-3">
+                                        <input type="text" class="form-control
+                                            <?= $errors['email'] ? 'is-invalid' : '' ?>"
                                             name="email" placeholder="Email" value="<?= $email ?>"
                                             <?= $disabledInput ? 'disabled' : ''?>>
-                                                <div class="invalid-feedback">
-                                                    <?= $errors['email'] ?>
-                                                </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" class="form-control rounded-pill
-                                            <?= $errors['contact'] ? 'is-invalid' : '' ?>"
-                                                name="contact" placeholder="Contato" value="<?= $contact ?>">
-                                                    <div class="invalid-feedback">
-                                                        <?= $errors['contact'] ?>
-                                                    </div>
+                                        <label for="name">Email</label>
+                                        <div class="invalid-feedback">
+                                            <?= $errors['email'] ?>
                                         </div>
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <select class="form-control rounded-pill
+                                    </div>
+                                    <div class="form-group row mx-0 mb-2">
+                                        <div class="form-floating col-6 mb-3 pl-0">
+                                            <input type="text" class="form-control
+                                                <?= $errors['contact'] ? 'is-invalid' : '' ?>"
+                                                name="contact" placeholder="Contato" value="<?= $contact ?>">
+                                            <label for="name">Contato</label>
+                                            <div class="invalid-feedback">
+                                                <?= $errors['contact'] ?>
+                                            </div>
+                                        </div>
+                                        <div class="form-floating col-6 mb-3 px-0">
+                                            <select class="form-control
                                                 <?= $errors['service_id'] ? 'is-invalid' : '' ?>"
                                                 name="service_id">
-                                                <option value="">Selecione um serviço...</option>
+                                                <option value="">Selecione...</option>
                                                 <?php
                                                     foreach($services as $service) {
                                                         $selected = $service->id === $selectedServiceId ? 'selected' : '';
@@ -87,6 +94,7 @@
                                                     }
                                                 ?>
                                             </select>
+                                            <label for="name">Serviço</label>
                                             <div class="invalid-feedback">
                                                 <?= $errors['service_id'] ?>
                                             </div>
@@ -94,10 +102,10 @@
                                     </div>
                                     <div class="row">
                                         <div class="col text-center">
-                                            <a href="provider.php" class="btn btn-secondary btn-user">Listar Fornecedores</a>
+                                            <a href="provider.php" class="btn btn-primary">Listar Fornecedores</a>
                                         </div>
                                         <div class="col text-center">
-                                            <button class="btn btn-primary btn-user" type="submit">Salvar</button>
+                                            <button class="btn btn-success" type="submit">Salvar</button>
                                         </div>
                                     </div>
                                 </form>

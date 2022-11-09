@@ -24,16 +24,17 @@
                             <tbody>
                                 <?php foreach($clients as $client) { ?>
                                     <tr>
-                                        <td class="align-middle"><?= $client->nome ?></td>
-                                        <td class="text-center align-middle"><?= $client->telefone ?></td>
-                                        <td class="align-middle"><?= $client->email ?></td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-warning btn-sm rounded-circle" href="manage_client.php?update=<?= $client->id ?>">
+                                        <td class="align-middle py-2"><?= $client->nome ?></td>
+                                        <td class="text-center align-middle py-2"><?= $client->telefone ?></td>
+                                        <td class="align-middle py-2"><?= $client->email ?></td>
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-warning btn-sm btn-block text-dark shadow-sm py-0 px-0"
+                                            href="manage_client.php?update=<?= $client->id ?>">
                                             <i class="fas fa-fw fa-edit"></i></a>
                                         </td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-danger btn-sm rounded-circle" href="#" data-toggle="modal" 
-                                                data-target="#modal_del" data-id="<?= $client->id ?>">
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-danger btn-sm btn-block text-dark shadow-sm py-0 px-0"
+                                            href="#" data-toggle="modal" data-target="#modal_del" data-id="<?= $client->id ?>">
                                             <i class="fas fa-fw fa-eraser"></i></a>
                                         </td>
                                     </tr>						

@@ -13,14 +13,16 @@
                         <div class="container-fluid pt-1 pb-3 px-3">
                             <div class="row align-items-center">
                                 <div class="col pr-0">
-                                    <a href="event.php" class="btn btn-light btn-sm btn-user">
-                                    <i class="fas fa-solid fa-angle-left text-success"></i> Voltar </a>
+                                    <a href="event.php" class="btn btn-primary">
+                                        <!-- <i class="fas fa-solid fa-angle-left text-success"></i>  -->
+                                        Voltar </a>
                                 </div>
                                 <div class="col pr-0 text-center">
                                 </div>
                                 <div class="col pl-0 text-right">
-                                    <a href="edit_event_manager.php?event=<?=$eventId?>" class="btn btn-primary btn-sm btn-user">
-                                        <i class="fas fa-fw fa-plus"></i> Inclur usuário</a>
+                                    <a href="edit_event_manager.php?event=<?=$eventId?>" class="btn btn-primary">
+                                        <!-- <i class="fas fa-fw fa-plus"></i> -->
+                                        Inclur usuário</a>
                                 </div>
                             </div>
                         </div>
@@ -36,12 +38,13 @@
                             <tbody>
                                 <?php foreach($eventUsers as $eventUser) { ?>
                                     <tr>
-                                        <td class="align-middle"><?= $eventUser->name ?></td>
-                                        <td class="text-center align-middle"><?= $eventUser->function ?></td>
-                                        <td class="text-center py-0 align-middle">
-                                            <button type="button" class="btn btn-danger btn-sm rounded-circle" data-toggle="modal" 
-                                                data-target="#modal_model_del" data-id="<?=$eventUser->manager_id?>" data-eventid="<?=$eventId?>"
-                                                    <?=$buttonDisabled ? 'disabled' : ''?>>
+                                        <td class="align-middle py-2"><?= $eventUser->name ?></td>
+                                        <td class="text-center align-middle py-2"><?= $eventUser->function ?></td>
+                                        <td class="text-center py-2 align-middle">
+                                            <button type="button" class="btn btn-outline-danger btn-sm btn-block text-dark shadow-sm py-0 px-0"
+                                                data-toggle="modal" data-target="#modal_model_del"
+                                                data-id="<?=$eventUser->manager_id?>" data-eventid="<?=$eventId?>"
+                                                <?=$buttonDisabled ? 'disabled' : ''?>>
                                                 <i class="fas fa-fw fa-eraser"></i></button>
                                         </td>
                                     </tr>						

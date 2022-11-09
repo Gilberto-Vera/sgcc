@@ -25,18 +25,18 @@
                             <tbody>
                                 <?php foreach($providers as $provider) { ?>
                                     <tr>
-                                        <td><?= $provider->business_name ?></td>
-                                        <td class="align-middle"><?= $provider->contact ?></td>
-                                        <td class="text-center align-middle"><?= $provider->phone ?></td>
-                                        <td class="align-middle"><?= $provider->service ?></td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-warning btn-sm rounded-circle" 
+                                        <td class="align-middle py-2"><?= $provider->business_name ?></td>
+                                        <td class="align-middle py-2"><?= $provider->contact ?></td>
+                                        <td class="text-center align-middle py-2"><?= $provider->phone ?></td>
+                                        <td class="align-middle py-2"><?= $provider->service ?></td>
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-warning btn-sm btn-block text-dark shadow-sm py-0 px-0" 
                                                 href="manage_provider.php?update=<?= $provider->id ?>">
                                                 <i class="fas fa-fw fa-edit"></i></a>
                                         </td>
-                                        <td class="text-center py-0 align-middle">
-                                            <a class="btn btn-danger btn-sm rounded-circle" data-toggle="modal" 
-                                                data-target="#modal_del" data-id="<?= $provider->id ?>">
+                                        <td class="text-center py-2 align-middle">
+                                            <a class="btn btn-outline-danger btn-sm btn-block text-dark shadow-sm py-0 px-0"
+                                                data-toggle="modal" data-target="#modal_del" data-id="<?= $provider->id ?>">
                                                 <i class="fas fa-fw fa-eraser"></i></a>
                                         </td>
                                     </tr>						

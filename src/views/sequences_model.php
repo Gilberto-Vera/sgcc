@@ -13,7 +13,7 @@
                         <div class="container-fluid pt-1 pb-3 px-3">
                             <div class="row">
                                 <div class="col pr-0">
-                                    <a href="roadmap_model.php?event=<?= $eventId ?>" class="btn btn-secondary btn-sm btn-user">
+                                    <a href="roadmap_model.php?event=<?= $eventId ?>" class="btn btn-primary">
                                         </i> Voltar </a>
                                 </div>
                                 <div class="col pr-0"></div>
@@ -24,7 +24,7 @@
                         <?php include(TEMPLATE_PATH . '/messages.php') ?>
                         <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                             <thead>
-                                <tr class="text-center bg-light text-dark">
+                                <tr class="text-center bg-secondary text-white">
                                     <th>Ordem</th>
                                     <th>Descrição</th>
                                     <th>Observação</th>
@@ -33,9 +33,9 @@
                             <tbody>
                                 <?php foreach($sequences as $sequence) { ?>
                                     <tr>
-                                        <td class="text-center align-middle"><?= $sequence->order ?></td>
-                                        <td class="align-middle"><?= $sequence->description ?></td>
-                                        <td class="align-middle"><?= $sequence->note ?></td>
+                                        <td class="text-center align-middle py-2"><?= $sequence->order ?></td>
+                                        <td class="align-middle py-2"><?= $sequence->description ?></td>
+                                        <td class="align-middle py-2"><?= $sequence->note ?></td>
                                     </tr>						
                                 <?php }; ?>
                             </tbody>
